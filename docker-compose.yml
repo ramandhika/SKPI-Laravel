@@ -1,0 +1,15 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: skpi-app
+    restart: no
+    ports:
+      - "8003:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html/public
+      - DB_CONNECTION=sqlite
+      # Variabel DB_HOST, DB_PORT, dll tidak diperlukan untuk SQLite
