@@ -1,192 +1,247 @@
 @extends('layouts.app')
 
 @section('title', 'Tambah SKPI')
-@section('page-title', 'Tambah Data SKPI')
-
-@section('sidebar')
-<a href="{{ route('mahasiswa.dashboard') }}" class="block px-6 py-3 hover:bg-indigo-700 transition">
-    <i class="fas fa-home mr-3"></i> Dashboard
-</a>
-<a href="{{ route('mahasiswa.skpi.index') }}" class="block px-6 py-3 hover:bg-indigo-700 transition">
-    <i class="fas fa-file-alt mr-3"></i> Data SKPI
-</a>
-<a href="{{ route('mahasiswa.skpi.create') }}" class="block px-6 py-3 bg-indigo-900 border-l-4 border-white">
-    <i class="fas fa-plus mr-3"></i> Tambah SKPI
-</a>
-@endsection
+@section('page-title', 'Upload SKPI Baru')
 
 @section('content')
-<div class="max-w-4xl mx-auto">
-    <div class="bg-white rounded-lg shadow-md p-6">
-        <form action="{{ route('mahasiswa.skpi.store') }}" method="POST" id="skpiForm">
-            @csrf
-            
-            <div class="mb-6">
-                <label class="block text-gray-700 font-semibold mb-2">Kategori SKPI <span class="text-red-500">*</span></label>
-                <select name="kategori_skpi_id" id="kategori_skpi_id" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" required>
-                    <option value="">Pilih Kategori</option>
-                    @foreach($kategoris as $kategori)
-                        <option value="{{ $kategori->id }}" data-nilai="{{ $kategori->nilai }}" {{ old('kategori_skpi_id') == $kategori->id ? 'selected' : '' }}>
-                            {{ $kategori->nama }} (Nilai: {{ $kategori->nilai }})
-                        </option>
-                    @endforeach
-                </select>
-                @error('kategori_skpi_id')
-                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
+
+    <div class="max-w-4xl mx-auto">
+
+        <a href="{{ route('mahasiswa.skpi.index') }}"
+            class="inline-flex items-center text-sm font-medium text-slate-500 hover:text-indigo-600 mb-6 transition">
+            <div
+                class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center mr-2 shadow-sm">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+            Kembali ke Daftar
+        </a>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+
+            <div class="bg-slate-50/50 border-b border-slate-100 px-8 py-6">
+                <h2 class="text-xl font-bold text-slate-800">Formulir Pengajuan SKPI</h2>
+                <p class="text-sm text-slate-500 mt-1">Lengkapi data sertifikat atau kegiatan Anda dengan benar.</p>
             </div>
 
-            <div class="mb-6" id="nilaiDisplay" style="display: none;">
-                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                    <p class="text-blue-800">
-                        <i class="fas fa-star mr-2"></i>
-                        <strong>Nilai Kategori:</strong> <span id="nilaiText">0</span>
+            <form action="{{ route('mahasiswa.skpi.store') }}" method="POST" id="skpiForm" class="p-8">
+                @csrf
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">
+                                Kategori SKPI <span class="text-rose-500">*</span>
+                            </label>
+                            <select name="kategori_skpi_id" id="kategori_skpi_id"
+                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none cursor-pointer"
+                                required>
+                                <option value="">-- Pilih Kategori --</option>
+                                @foreach ($kategoris as $kategori)
+                                    <option value="{{ $kategori->id }}" data-nilai="{{ $kategori->nilai }}"
+                                        {{ old('kategori_skpi_id') == $kategori->id ? 'selected' : '' }}>
+                                        {{ $kategori->nama }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('kategori_skpi_id')
+                                <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div id="nilaiDisplay" class="hidden transition-all duration-300">
+                            <div
+                                class="flex items-center gap-3 p-4 bg-indigo-50 border border-indigo-100 rounded-xl text-indigo-700">
+                                <div
+                                    class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-indigo-600 shadow-sm font-bold text-lg">
+                                    <i class="fas fa-star text-amber-400 text-xs absolute -mt-6 -mr-6"></i>
+                                    <span id="nilaiText">0</span>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold uppercase tracking-wide opacity-70">Poin Kredit</p>
+                                    <p class="text-sm font-semibold">Nilai Kategori Ini</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">
+                                Sub Kategori <span class="text-rose-500">*</span>
+                            </label>
+                            <select name="sub_kategori_skpi_id" id="sub_kategori_skpi_id"
+                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none cursor-pointer disabled:bg-slate-100 disabled:text-slate-400"
+                                required disabled>
+                                <option value="">Pilih kategori terlebih dahulu</option>
+                            </select>
+                            @error('sub_kategori_skpi_id')
+                                <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">
+                                Nama Kegiatan (Indonesia) <span class="text-rose-500">*</span>
+                            </label>
+                            <input type="text" name="nama_kegiatan" value="{{ old('nama_kegiatan') }}"
+                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none placeholder:text-slate-400"
+                                placeholder="Contoh: Juara 1 Lomba Web Design Nasional" required>
+                            @error('nama_kegiatan')
+                                <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">
+                                Nama Kegiatan (English)
+                            </label>
+                            <input type="text" name="nama_kegiatan_en" value="{{ old('nama_kegiatan_en') }}"
+                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none placeholder:text-slate-400"
+                                placeholder="Optional...">
+                            @error('nama_kegiatan_en')
+                                <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mb-8 p-6 bg-slate-50 rounded-2xl border border-slate-200 border-dashed">
+                    <label class="block text-sm font-bold text-slate-700 mb-3">
+                        Link Bukti (Google Drive) <span class="text-rose-500">*</span>
+                    </label>
+
+                    <div class="flex flex-col md:flex-row gap-3">
+                        <div class="relative flex-1">
+                            <i class="fab fa-google-drive absolute left-4 top-3.5 text-slate-400 text-lg"></i>
+                            <input type="url" name="attachment_url" id="attachment_url"
+                                value="{{ old('attachment_url') }}"
+                                class="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none"
+                                placeholder="https://drive.google.com/file/d/..." required>
+                        </div>
+                        <button type="button" id="checkUrlBtn"
+                            class="px-6 py-3 bg-white border border-slate-200 text-slate-600 font-semibold rounded-xl hover:border-indigo-300 hover:text-indigo-600 transition shadow-sm whitespace-nowrap">
+                            <i class="fas fa-link mr-2"></i> Cek Akses
+                        </button>
+                    </div>
+
+                    <div id="urlStatus" class="mt-3"></div>
+
+                    <p class="text-xs text-slate-400 mt-3 flex items-center">
+                        <i class="fas fa-info-circle mr-1.5"></i> Pastikan file diatur ke "Anyone with the link" agar bisa
+                        diakses dosen.
                     </p>
+                    @error('attachment_url')
+                        <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
-            </div>
 
-            <div class="mb-6">
-                <label class="block text-gray-700 font-semibold mb-2">Sub Kategori <span class="text-red-500">*</span></label>
-                <select name="sub_kategori_skpi_id" id="sub_kategori_skpi_id" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" required disabled>
-                    <option value="">Pilih kategori terlebih dahulu</option>
-                </select>
-                @error('sub_kategori_skpi_id')
-                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div class="mb-6">
-                <label class="block text-gray-700 font-semibold mb-2">Nama Kegiatan/Sertifikat (Bahasa Indonesia) <span class="text-red-500">*</span></label>
-                <input type="text" name="nama_kegiatan" value="{{ old('nama_kegiatan') }}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Contoh: Juara 1 Lomba Web Design Nasional" required>
-                @error('nama_kegiatan')
-                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div class="mb-6">
-                <label class="block text-gray-700 font-semibold mb-2">Nama Kegiatan/Sertifikat (Bahasa Inggris)</label>
-                <input type="text" name="nama_kegiatan_en" value="{{ old('nama_kegiatan_en') }}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Example: 1st Winner of National Web Design Competition">
-                @error('nama_kegiatan_en')
-                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div class="mb-6">
-                <label class="block text-gray-700 font-semibold mb-2">Link Attachment Google Drive <span class="text-red-500">*</span></label>
-                <div class="flex gap-2">
-                    <input type="url" name="attachment_url" id="attachment_url" value="{{ old('attachment_url') }}" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="https://drive.google.com/file/d/..." required>
-                    <button type="button" id="checkUrlBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                        <i class="fas fa-check mr-2"></i> Cek Akses
+                <div
+                    class="flex flex-col-reverse md:flex-row items-center justify-end gap-4 pt-6 border-t border-slate-100">
+                    <button type="submit" name="status" value="draft"
+                        class="w-full md:w-auto px-8 py-3.5 bg-slate-100 text-slate-600 font-bold rounded-xl hover:bg-slate-200 transition">
+                        <i class="fas fa-save mr-2"></i> Simpan Draft
+                    </button>
+                    <button type="submit" name="status" value="submitted"
+                        class="w-full md:w-auto px-8 py-3.5 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30">
+                        <i class="fas fa-paper-plane mr-2"></i> Submit Sekarang
                     </button>
                 </div>
-                <div id="urlStatus" class="mt-2"></div>
-                <p class="text-sm text-gray-500 mt-2">
-                    <i class="fas fa-info-circle mr-1"></i>
-                    Pastikan file sudah di-share dengan "Anyone with the link"
-                </p>
-                @error('attachment_url')
-                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div class="flex items-center justify-between pt-4 border-t">
-                <a href="{{ route('mahasiswa.skpi.index') }}" class="px-6 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition">
-                    <i class="fas fa-arrow-left mr-2"></i> Kembali
-                </a>
-                <div class="space-x-2">
-                    <button type="submit" name="status" value="draft" class="px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition">
-                        <i class="fas fa-save mr-2"></i> Simpan sebagai Draft
-                    </button>
-                    <button type="submit" name="status" value="submitted" class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
-                        <i class="fas fa-paper-plane mr-2"></i> Submit
-                    </button>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 
-@push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const kategoriSelect = document.getElementById('kategori_skpi_id');
-    const subKategoriSelect = document.getElementById('sub_kategori_skpi_id');
-    const nilaiDisplay = document.getElementById('nilaiDisplay');
-    const nilaiText = document.getElementById('nilaiText');
-    const checkUrlBtn = document.getElementById('checkUrlBtn');
-    const attachmentUrl = document.getElementById('attachment_url');
-    const urlStatus = document.getElementById('urlStatus');
+    @push('scripts')
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const kategoriSelect = document.getElementById('kategori_skpi_id');
+                const subKategoriSelect = document.getElementById('sub_kategori_skpi_id');
+                const nilaiDisplay = document.getElementById('nilaiDisplay');
+                const nilaiText = document.getElementById('nilaiText');
+                const checkUrlBtn = document.getElementById('checkUrlBtn');
+                const attachmentUrl = document.getElementById('attachment_url');
+                const urlStatus = document.getElementById('urlStatus');
 
-    kategoriSelect.addEventListener('change', function() {
-        const kategoriId = this.value;
-        const selectedOption = this.options[this.selectedIndex];
-        const nilai = selectedOption.getAttribute('data-nilai');
+                kategoriSelect.addEventListener('change', function() {
+                    const kategoriId = this.value;
+                    const selectedOption = this.options[this.selectedIndex];
+                    const nilai = selectedOption.getAttribute('data-nilai');
 
-        if (kategoriId) {
-            // Show nilai
-            nilaiText.textContent = nilai;
-            nilaiDisplay.style.display = 'block';
+                    if (kategoriId) {
+                        // Show nilai
+                        nilaiText.textContent = nilai;
+                        nilaiDisplay.style.display = 'block';
 
-            // Load sub kategori
-            fetch(`/mahasiswa/kategori/${kategoriId}/sub-kategori`)
-                .then(response => response.json())
-                .then(data => {
-                    subKategoriSelect.innerHTML = '<option value="">Pilih Sub Kategori</option>';
-                    data.forEach(sub => {
-                        const option = document.createElement('option');
-                        option.value = sub.id;
-                        option.textContent = sub.nama;
-                        subKategoriSelect.appendChild(option);
-                    });
-                    subKategoriSelect.disabled = false;
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Gagal memuat sub kategori');
+                        // Load sub kategori
+                        fetch(`/mahasiswa/kategori/${kategoriId}/sub-kategori`)
+                            .then(response => response.json())
+                            .then(data => {
+                                subKategoriSelect.innerHTML =
+                                '<option value="">Pilih Sub Kategori</option>';
+                                data.forEach(sub => {
+                                    const option = document.createElement('option');
+                                    option.value = sub.id;
+                                    option.textContent = sub.nama;
+                                    subKategoriSelect.appendChild(option);
+                                });
+                                subKategoriSelect.disabled = false;
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert('Gagal memuat sub kategori');
+                            });
+                    } else {
+                        nilaiDisplay.style.display = 'none';
+                        subKategoriSelect.innerHTML =
+                        '<option value="">Pilih kategori terlebih dahulu</option>';
+                        subKategoriSelect.disabled = true;
+                    }
                 });
-        } else {
-            nilaiDisplay.style.display = 'none';
-            subKategoriSelect.innerHTML = '<option value="">Pilih kategori terlebih dahulu</option>';
-            subKategoriSelect.disabled = true;
-        }
-    });
 
-    checkUrlBtn.addEventListener('click', function() {
-        const url = attachmentUrl.value;
-        if (!url) {
-            urlStatus.innerHTML = '<p class="text-red-600 text-sm"><i class="fas fa-times-circle mr-1"></i> Masukkan URL terlebih dahulu</p>';
-            return;
-        }
+                checkUrlBtn.addEventListener('click', function() {
+                    const url = attachmentUrl.value;
+                    if (!url) {
+                        urlStatus.innerHTML =
+                            '<p class="text-red-600 text-sm"><i class="fas fa-times-circle mr-1"></i> Masukkan URL terlebih dahulu</p>';
+                        return;
+                    }
 
-        checkUrlBtn.disabled = true;
-        checkUrlBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Mengecek...';
-        urlStatus.innerHTML = '<p class="text-gray-600 text-sm"><i class="fas fa-spinner fa-spin mr-1"></i> Sedang mengecek aksesibilitas link...</p>';
+                    checkUrlBtn.disabled = true;
+                    checkUrlBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Mengecek...';
+                    urlStatus.innerHTML =
+                        '<p class="text-gray-600 text-sm"><i class="fas fa-spinner fa-spin mr-1"></i> Sedang mengecek aksesibilitas link...</p>';
 
-        fetch('/mahasiswa/check-url', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-            },
-            body: JSON.stringify({ url: url })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.accessible) {
-                urlStatus.innerHTML = `<p class="text-green-600 text-sm"><i class="fas fa-check-circle mr-1"></i> ${data.message}</p>`;
-            } else {
-                urlStatus.innerHTML = `<p class="text-red-600 text-sm"><i class="fas fa-exclamation-circle mr-1"></i> ${data.message}</p>`;
-            }
-        })
-        .catch(error => {
-            urlStatus.innerHTML = '<p class="text-red-600 text-sm"><i class="fas fa-times-circle mr-1"></i> Gagal mengecek URL</p>';
-        })
-        .finally(() => {
-            checkUrlBtn.disabled = false;
-            checkUrlBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Cek Akses';
-        });
-    });
-});
-</script>
-@endpush
+                    fetch('/mahasiswa/check-url', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                            },
+                            body: JSON.stringify({
+                                url: url
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.accessible) {
+                                urlStatus.innerHTML =
+                                    `<p class="text-green-600 text-sm"><i class="fas fa-check-circle mr-1"></i> ${data.message}</p>`;
+                            } else {
+                                urlStatus.innerHTML =
+                                    `<p class="text-red-600 text-sm"><i class="fas fa-exclamation-circle mr-1"></i> ${data.message}</p>`;
+                            }
+                        })
+                        .catch(error => {
+                            urlStatus.innerHTML =
+                                '<p class="text-red-600 text-sm"><i class="fas fa-times-circle mr-1"></i> Gagal mengecek URL</p>';
+                        })
+                        .finally(() => {
+                            checkUrlBtn.disabled = false;
+                            checkUrlBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Cek Akses';
+                        });
+                });
+            });
+        </script>
+    @endpush
 @endsection

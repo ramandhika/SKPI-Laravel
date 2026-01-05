@@ -1,124 +1,187 @@
 @extends('layouts.app')
-@section('title', 'Dashboard Mahasiswa')
-@section('page-title', 'Dashboard Mahasiswa')
 
-{{-- @section('sidebar')
-<a href="{{ route('mahasiswa.dashboard') }}" class="block px-6 py-3 bg-indigo-900 border-l-4 border-white">
-    <i class="fas fa-home mr-3"></i> Dashboard
-</a>
-<a href="{{ route('mahasiswa.skpi.index') }}" class="block px-6 py-3 hover:bg-indigo-700 transition">
-    <i class="fas fa-file-alt mr-3"></i> Data SKPI
-</a>
-<a href="{{ route('mahasiswa.skpi.create') }}" class="block px-6 py-3 hover:bg-indigo-700 transition">
-    <i class="fas fa-plus mr-3"></i> Tambah SKPI
-</a>
-@endsection --}}
+@section('title', 'Dashboard Mahasiswa')
+@section('page-title', 'Overview Akademik')
+
+{{-- Sidebar sudah dihandle oleh Layouts, jadi section sidebar dihapus --}}
 
 @section('content')
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="flex items-center justify-between">
+
+    @if ($activePeriod)
+        <div
+            class="mb-8 relative overflow-hidden rounded-2xl bg-gradient-to-r from-indigo-600 to-indigo-800 shadow-lg shadow-indigo-500/20 text-white p-6 md:p-8">
+            <div class="absolute top-0 right-0 -mr-10 -mt-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 -ml-10 -mb-10 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl"></div>
+
+            <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <p class="text-gray-500 text-sm">Total SKPI</p>
-                    <p class="text-3xl font-bold text-indigo-600">{{ $totalSkpi }}</p>
+                    <div class="flex items-center gap-2 mb-2">
+                        <span
+                            class="px-2.5 py-0.5 rounded-full bg-green-400/20 text-green-300 text-xs font-bold border border-green-400/30 animate-pulse">
+                            <i class="fas fa-circle text-[8px] mr-1"></i> Periode Aktif
+                        </span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-1">{{ $activePeriod->nama }}</h3>
+                    <p class="text-indigo-100 text-sm opacity-90">
+                        <i class="far fa-calendar-alt mr-1"></i>
+                        {{ $activePeriod->tanggal_mulai->format('d M Y') }} —
+                        {{ $activePeriod->tanggal_selesai->format('d M Y') }}
+                    </p>
                 </div>
-                <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
-                    <i class="fas fa-file-alt text-indigo-600 text-xl"></i>
+
+                {{-- Pastikan route 'mahasiswa.skpi.create' ada, jika belum, ganti '#' --}}
+                <a href="{{ route('mahasiswa.skpi.create') }}"
+                    class="inline-flex items-center justify-center px-6 py-3 bg-white text-indigo-700 font-bold rounded-xl hover:bg-indigo-50 transition transform hover:-translate-y-0.5 shadow-md">
+                    <i class="fas fa-plus-circle mr-2"></i> Upload SKPI Baru
+                </a>
+            </div>
+        </div>
+    @else
+        <div class="mb-8 p-6 rounded-2xl bg-slate-100 border border-slate-200 text-center">
+            <div class="w-16 h-16 bg-slate-200 rounded-full flex items-center justify-center mx-auto mb-3 text-slate-400">
+                <i class="fas fa-calendar-times text-2xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-700">Tidak Ada Periode Aktif</h3>
+            <p class="text-slate-500 text-sm mt-1">Saat ini belum ada periode pengumpulan SKPI yang dibuka.</p>
+        </div>
+    @endif
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
+            <div class="flex justify-between items-start">
+                <div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Upload</p>
+                    <h3 class="text-3xl font-bold text-slate-800 mt-2">{{ $totalSkpi }}</h3>
+                </div>
+                <div class="p-3 bg-indigo-50 rounded-xl text-indigo-600">
+                    <i class="fas fa-folder-open text-xl"></i>
                 </div>
             </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="flex items-center justify-between">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
+            <div class="flex justify-between items-start">
                 <div>
-                    <p class="text-gray-500 text-sm">Draft</p>
-                    <p class="text-3xl font-bold text-gray-600">{{ $draftSkpi }}</p>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Draft</p>
+                    <h3 class="text-3xl font-bold text-slate-600 mt-2">{{ $draftSkpi }}</h3>
                 </div>
-                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
-                    <i class="fas fa-edit text-gray-600 text-xl"></i>
+                <div class="p-3 bg-slate-100 rounded-xl text-slate-600">
+                    <i class="fas fa-pencil-alt text-xl"></i>
                 </div>
             </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="flex items-center justify-between">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
+            <div class="flex justify-between items-start">
                 <div>
-                    <p class="text-gray-500 text-sm">Submitted</p>
-                    <p class="text-3xl font-bold text-yellow-600">{{ $submittedSkpi }}</p>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Menunggu Validasi</p>
+                    <h3 class="text-3xl font-bold text-amber-600 mt-2">{{ $submittedSkpi }}</h3>
                 </div>
-                <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
-                    <i class="fas fa-clock text-yellow-600 text-xl"></i>
+                <div class="p-3 bg-amber-50 rounded-xl text-amber-600">
+                    <i class="fas fa-clock text-xl"></i>
                 </div>
             </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="flex items-center justify-between">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
+            <div class="flex justify-between items-start">
                 <div>
-                    <p class="text-gray-500 text-sm">Accepted</p>
-                    <p class="text-3xl font-bold text-green-600">{{ $acceptedSkpi }}</p>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Disetujui</p>
+                    <h3 class="text-3xl font-bold text-emerald-600 mt-2">{{ $acceptedSkpi }}</h3>
                 </div>
-                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                    <i class="fas fa-check text-green-600 text-xl"></i>
+                <div class="p-3 bg-emerald-50 rounded-xl text-emerald-600">
+                    <i class="fas fa-check-circle text-xl"></i>
                 </div>
             </div>
         </div>
     </div>
 
-    @if ($activePeriod)
-        <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
-            <h4 class="font-semibold text-green-800 mb-2"><i class="fas fa-info-circle mr-2"></i>Periode Input Aktif</h4>
-            <p class="text-green-700">
-                <strong>{{ $activePeriod->nama }}</strong><br>
-                {{ $activePeriod->tanggal_mulai->format('d M Y') }} - {{ $activePeriod->tanggal_selesai->format('d M Y') }}
-            </p>
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+            <div>
+                <h3 class="text-lg font-bold text-slate-800">Riwayat SKPI Terbaru</h3>
+                <p class="text-sm text-slate-500">5 data terakhir yang kamu input.</p>
+            </div>
+            <a href="{{ route('mahasiswa.skpi.index') }}"
+                class="text-sm text-indigo-600 hover:text-indigo-800 font-medium transition">
+                Lihat Semua <i class="fas fa-arrow-right ml-1 text-xs"></i>
+            </a>
         </div>
-    @else
-        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
-            <p class="text-yellow-800"><i class="fas fa-exclamation-triangle mr-2"></i>Tidak ada periode input aktif saat
-                ini</p>
-        </div>
-    @endif
 
-    <div class="bg-white rounded-lg shadow">
-        <div class="p-6 border-b">
-            <h3 class="text-lg font-semibold">SKPI Terbaru</h3>
-        </div>
         <div class="overflow-x-auto">
-            <table class="w-full">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Kategori</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Kegiatan</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tanggal</th>
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider">
+                        <th class="px-6 py-4 font-semibold">Kategori</th>
+                        <th class="px-6 py-4 font-semibold">Nama Kegiatan</th>
+                        <th class="px-6 py-4 font-semibold text-center">Status</th>
+                        <th class="px-6 py-4 font-semibold text-right">Tanggal Input</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-200">
+                <tbody class="divide-y divide-slate-100">
                     @forelse($recentSkpi as $skpi)
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4">{{ $skpi->kategori->nama }}</td>
-                            <td class="px-6 py-4">{{ $skpi->nama_kegiatan }}</td>
+                        <tr class="hover:bg-slate-50/80 transition">
                             <td class="px-6 py-4">
+                                <span
+                                    class="inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700">
+                                    <i class="fas fa-tag mr-1.5 text-[10px]"></i> {{ $skpi->kategori->nama }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <p class="text-sm font-semibold text-slate-700 truncate max-w-xs">
+                                    {{ $skpi->nama_kegiatan }}</p>
+                            </td>
+                            <td class="px-6 py-4 text-center">
                                 @php
-                                    $colors = [
-                                        'draft' => 'gray',
-                                        'submitted' => 'yellow',
-                                        'accepted' => 'green',
-                                        'rejected' => 'red',
+                                    $statusConfig = [
+                                        'draft' => [
+                                            'bg' => 'bg-slate-100',
+                                            'text' => 'text-slate-600',
+                                            'icon' => 'fa-pencil-alt',
+                                        ],
+                                        'submitted' => [
+                                            'bg' => 'bg-amber-100',
+                                            'text' => 'text-amber-600',
+                                            'icon' => 'fa-clock',
+                                        ],
+                                        'accepted' => [
+                                            'bg' => 'bg-emerald-100',
+                                            'text' => 'text-emerald-600',
+                                            'icon' => 'fa-check',
+                                        ],
+                                        'rejected' => [
+                                            'bg' => 'bg-rose-100',
+                                            'text' => 'text-rose-600',
+                                            'icon' => 'fa-times',
+                                        ],
                                     ];
-                                    $color = $colors[$skpi->status] ?? 'gray';
+                                    $config = $statusConfig[$skpi->status] ?? $statusConfig['draft'];
                                 @endphp
                                 <span
-                                    class="px-2 py-1 bg-{{ $color }}-100 text-{{ $color }}-800 rounded-full text-xs font-medium">
+                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold {{ $config['bg'] }} {{ $config['text'] }}">
+                                    <i class="fas {{ $config['icon'] }} mr-1.5 text-[10px]"></i>
                                     {{ ucfirst($skpi->status) }}
                                 </span>
                             </td>
-                            <td class="px-6 py-4 text-sm text-gray-500">{{ $skpi->created_at->format('d M Y') }}</td>
+                            <td class="px-6 py-4 text-right">
+                                <span
+                                    class="text-sm text-slate-500 font-mono">{{ $skpi->created_at->format('d/m/Y') }}</span>
+                            </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="px-6 py-8 text-center text-gray-500">Belum ada data SKPI</td>
+                            <td colspan="4" class="px-6 py-12 text-center">
+                                <div class="flex flex-col items-center justify-center text-slate-400">
+                                    <i class="far fa-folder-open text-4xl mb-3"></i>
+                                    <p class="text-sm font-medium">Belum ada data SKPI.</p>
+                                    @if ($activePeriod)
+                                        <a href="{{ route('mahasiswa.skpi.create') }}"
+                                            class="mt-2 text-sm text-indigo-600 hover:underline">
+                                            Mulai Upload Sekarang
+                                        </a>
+                                    @endif
+                                </div>
+                            </td>
                         </tr>
                     @endforelse
                 </tbody>

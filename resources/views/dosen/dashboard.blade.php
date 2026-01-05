@@ -1,130 +1,162 @@
 @extends('layouts.app')
+
 @section('title', 'Dashboard Dosen')
-@section('page-title', 'Dashboard Dosen/Kaprodi')
+@section('page-title', 'Dashboard Dosen')
 
-{{-- @section('sidebar')
-    <p class="px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 mt-4">Menu Mahasiswa</p>
-
-    <a href="#"
-        class="flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 
-   {{ request()->routeIs('mahasiswa.dashboard') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30' : 'text-slate-400 hover:bg-slate-800 hover:text-white' }}">
-        <i class="fas fa-home w-5 text-center"></i>
-        <span>Dashboard</span>
-    </a>
-
-    <a href="#"
-        class="flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 text-slate-400 hover:bg-slate-800 hover:text-white">
-        <i class="fas fa-file-upload w-5 text-center"></i>
-        <span>Input SKPI</span>
-    </a>
-@endsection --}}
+{{-- Sidebar sudah dihandle Layout --}}
 
 @section('content')
-    <div class="mb-6 bg-indigo-50 border border-indigo-200 rounded-lg p-4">
-        <h3 class="font-semibold text-indigo-900"><i class="fas fa-graduation-cap mr-2"></i>Program Studi:
-            {{ $programStudi->nama }}</h3>
-        <p class="text-sm text-indigo-700 mt-1">Kode: {{ $programStudi->kode }}</p>
-    </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-gray-500 text-sm">Total SKPI</p>
-                    <p class="text-3xl font-bold text-indigo-600">{{ $totalSkpi }}</p>
+    <div class="mb-8 relative overflow-hidden rounded-2xl bg-slate-900 text-white p-6 md:p-8 shadow-xl">
+        <div class="absolute top-0 right-0 -mr-10 -mt-10 w-40 h-40 bg-indigo-500/20 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -ml-10 -mb-10 w-40 h-40 bg-blue-500/20 rounded-full blur-3xl"></div>
+
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div>
+                <div class="flex items-center gap-2 mb-2 text-slate-400 text-xs font-bold uppercase tracking-wider">
+                    <i class="fas fa-university"></i> Program Studi
                 </div>
-                <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
-                    <i class="fas fa-file-alt text-indigo-600 text-xl"></i>
-                </div>
+                <h3 class="text-3xl font-bold mb-1">{{ $programStudi->nama }}</h3>
+                <p class="text-slate-300 text-sm">
+                    Kode Prodi: <span
+                        class="font-mono bg-slate-800 px-2 py-0.5 rounded text-indigo-300">{{ $programStudi->kode }}</span>
+                </p>
             </div>
-        </div>
 
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4 bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                <div class="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white text-xl">
+                    <i class="fas fa-users"></i>
+                </div>
                 <div>
-                    <p class="text-gray-500 text-sm">Perlu Review</p>
-                    <p class="text-3xl font-bold text-yellow-600">{{ $submittedSkpi }}</p>
-                </div>
-                <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
-                    <i class="fas fa-clock text-yellow-600 text-xl"></i>
-                </div>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-gray-500 text-sm">Accepted</p>
-                    <p class="text-3xl font-bold text-green-600">{{ $acceptedSkpi }}</p>
-                </div>
-                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                    <i class="fas fa-check text-green-600 text-xl"></i>
-                </div>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-gray-500 text-sm">Rejected</p>
-                    <p class="text-3xl font-bold text-red-600">{{ $rejectedSkpi }}</p>
-                </div>
-                <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
-                    <i class="fas fa-times text-red-600 text-xl"></i>
+                    <p class="text-xs text-slate-400">Mahasiswa Aktif</p>
+                    <p class="text-xl font-bold">?</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="bg-white rounded-lg shadow">
-        <div class="p-6 border-b">
-            <div class="flex items-center justify-between">
-                <h3 class="text-lg font-semibold">SKPI Terbaru</h3>
-                <a href="{{ route('dosen.skpi.index') }}" class="text-indigo-600 hover:text-indigo-800">
-                    Lihat Semua <i class="fas fa-arrow-right ml-1"></i>
-                </a>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total SKPI</p>
+                    <h3 class="text-3xl font-bold text-slate-800 mt-2">{{ $totalSkpi }}</h3>
+                </div>
+                <div
+                    class="p-3 bg-indigo-50 rounded-xl text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition">
+                    <i class="fas fa-file-contract text-xl"></i>
+                </div>
             </div>
         </div>
+
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Perlu Review</p>
+                    <h3 class="text-3xl font-bold text-amber-600 mt-2">{{ $submittedSkpi }}</h3>
+                </div>
+                <div
+                    class="p-3 bg-amber-50 rounded-xl text-amber-600 group-hover:bg-amber-500 group-hover:text-white transition">
+                    <i class="fas fa-clock text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Disetujui</p>
+                    <h3 class="text-3xl font-bold text-emerald-600 mt-2">{{ $acceptedSkpi }}</h3>
+                </div>
+                <div
+                    class="p-3 bg-emerald-50 rounded-xl text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white transition">
+                    <i class="fas fa-check-circle text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Ditolak</p>
+                    <h3 class="text-3xl font-bold text-rose-600 mt-2">{{ $rejectedSkpi }}</h3>
+                </div>
+                <div
+                    class="p-3 bg-rose-50 rounded-xl text-rose-600 group-hover:bg-rose-500 group-hover:text-white transition">
+                    <i class="fas fa-times-circle text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+            <div>
+                <h3 class="text-lg font-bold text-slate-800">SKPI Masuk Terbaru</h3>
+                <p class="text-sm text-slate-500">5 data terakhir yang membutuhkan perhatian.</p>
+            </div>
+            <a href="{{ route('dosen.skpi.index') }}"
+                class="text-sm text-indigo-600 hover:text-indigo-800 font-medium transition">
+                Lihat Semua <i class="fas fa-arrow-right ml-1 text-xs"></i>
+            </a>
+        </div>
+
         <div class="overflow-x-auto">
-            <table class="w-full">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Mahasiswa</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Kategori</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Kegiatan</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tanggal</th>
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider">
+                        <th class="px-6 py-4 font-semibold">Mahasiswa</th>
+                        <th class="px-6 py-4 font-semibold">Kategori</th>
+                        <th class="px-6 py-4 font-semibold">Kegiatan</th>
+                        <th class="px-6 py-4 font-semibold text-center">Status</th>
+                        <th class="px-6 py-4 font-semibold text-right">Tanggal</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-200">
+                <tbody class="divide-y divide-slate-100">
                     @forelse($recentSkpi as $skpi)
-                        <tr class="hover:bg-gray-50">
+                        <tr class="hover:bg-slate-50/80 transition">
                             <td class="px-6 py-4">
                                 <div>
-                                    <p class="font-medium">{{ $skpi->user->name }}</p>
-                                    <p class="text-sm text-gray-500">{{ $skpi->user->nim }}</p>
+                                    <p class="text-sm font-bold text-slate-700">{{ $skpi->user->name }}</p>
+                                    <p class="text-xs text-slate-500 font-mono">{{ $skpi->user->nim }}</p>
                                 </div>
                             </td>
-                            <td class="px-6 py-4">{{ $skpi->kategori->nama }}</td>
-                            <td class="px-6 py-4">{{ $skpi->nama_kegiatan }}</td>
                             <td class="px-6 py-4">
-                                @php$colors = [
-                                                                            'draft' => 'gray',
-                                                                            'submitted' => 'yellow',
-                                                                            'accepted' => 'green',
-                                                                            'rejected' => 'red',
-                                                                        ];
-                                                                $color = $colors[$skpi->status] ?? 'gray'; @endphp ?>
                                 <span
-                                    class="px-2 py-1 bg-{{ $color }}-100 text-{{ $color }}-800 rounded-full text-xs font-medium">
+                                    class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-50 text-indigo-700 uppercase">
+                                    {{ $skpi->kategori->nama }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <p class="text-sm font-medium text-slate-700 truncate max-w-xs">{{ $skpi->nama_kegiatan }}
+                                </p>
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                @php
+                                    $statusConfig = [
+                                        'draft' => ['bg' => 'bg-slate-100', 'text' => 'text-slate-600'],
+                                        'submitted' => ['bg' => 'bg-amber-100', 'text' => 'text-amber-600'],
+                                        'accepted' => ['bg' => 'bg-emerald-100', 'text' => 'text-emerald-600'],
+                                        'rejected' => ['bg' => 'bg-rose-100', 'text' => 'text-rose-600'],
+                                    ];
+                                    $config = $statusConfig[$skpi->status] ?? $statusConfig['draft'];
+                                @endphp
+                                <span
+                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold {{ $config['bg'] }} {{ $config['text'] }}">
                                     {{ ucfirst($skpi->status) }}
                                 </span>
                             </td>
-                            <td class="px-6 py-4 text-sm text-gray-500">{{ $skpi->created_at->format('d M Y') }}</td>
+                            <td class="px-6 py-4 text-right">
+                                <span
+                                    class="text-sm text-slate-500 font-mono">{{ $skpi->created_at->format('d M Y') }}</span>
+                            </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="px-6 py-8 text-center text-gray-500">Belum ada data SKPI</td>
+                            <td colspan="5" class="px-6 py-12 text-center text-slate-400">
+                                <i class="far fa-folder-open text-3xl mb-2"></i>
+                                <p class="text-sm">Belum ada data masuk</p>
+                            </td>
                         </tr>
                     @endforelse
                 </tbody>

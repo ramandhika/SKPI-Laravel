@@ -85,7 +85,7 @@
                     @elseif(auth()->user()->role === 'mahasiswa')
                         @include('sidebar.mahasiswa')
                     @elseif(auth()->user()->role === 'dosen')
-                        @include('sidebar.admin')
+                        @include('sidebar.dosen')
                     @endif
                 @endif
 
