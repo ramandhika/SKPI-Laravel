@@ -14,6 +14,7 @@ class SubKategoriSkpi extends Model
         'nama',
         'nama_en',
         'deskripsi',
+        'nilai',
     ];
 
     public function kategori()

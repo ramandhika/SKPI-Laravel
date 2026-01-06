@@ -31,20 +31,24 @@
                     <div class="space-y-6">
                         <div>
                             <label class="block text-sm font-bold text-slate-700 mb-2">
-                                Kategori SKPI <span class="text-rose-500">*</span>
+                                Sub Kategori SKPI <span class="text-rose-500">*</span>
                             </label>
-                            <select name="kategori_skpi_id" id="kategori_skpi_id"
+                            <select name="sub_kategori_skpi_id" id="sub_kategori_skpi_id"
                                 class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none cursor-pointer"
                                 required>
-                                <option value="">-- Pilih Kategori --</option>
+                                <option value="">-- Pilih Sub Kategori --</option>
                                 @foreach ($kategoris as $kategori)
-                                    <option value="{{ $kategori->id }}" data-nilai="{{ $kategori->nilai }}"
-                                        {{ old('kategori_skpi_id') == $kategori->id ? 'selected' : '' }}>
-                                        {{ $kategori->nama }}
-                                    </option>
+                                    <optgroup label="{{ $kategori->nama }}">
+                                        @foreach ($kategori->subKategori as $sub)
+                                            <option value="{{ $sub->id }}" data-nilai="{{ $sub->nilai }}"
+                                                {{ old('sub_kategori_skpi_id') == $sub->id ? 'selected' : '' }}>
+                                                {{ $sub->nama }} - {{ $sub->nilai }} poin
+                                            </option>
+                                        @endforeach
+                                    </optgroup>
                                 @endforeach
                             </select>
-                            @error('kategori_skpi_id')
+                            @error('sub_kategori_skpi_id')
                                 <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
                         </div>
@@ -59,23 +63,9 @@
                                 </div>
                                 <div>
                                     <p class="text-xs font-bold uppercase tracking-wide opacity-70">Poin Kredit</p>
-                                    <p class="text-sm font-semibold">Nilai Kategori Ini</p>
+                                    <p class="text-sm font-semibold">Nilai Sub Kategori Ini</p>
                                 </div>
                             </div>
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-slate-700 mb-2">
-                                Sub Kategori <span class="text-rose-500">*</span>
-                            </label>
-                            <select name="sub_kategori_skpi_id" id="sub_kategori_skpi_id"
-                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none cursor-pointer disabled:bg-slate-100 disabled:text-slate-400"
-                                required disabled>
-                                <option value="">Pilih kategori terlebih dahulu</option>
-                            </select>
-                            @error('sub_kategori_skpi_id')
-                                <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
                         </div>
                     </div>
 
@@ -155,7 +145,6 @@
     @push('scripts')
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                const kategoriSelect = document.getElementById('kategori_skpi_id');
                 const subKategoriSelect = document.getElementById('sub_kategori_skpi_id');
                 const nilaiDisplay = document.getElementById('nilaiDisplay');
                 const nilaiText = document.getElementById('nilaiText');
@@ -163,41 +152,24 @@
                 const attachmentUrl = document.getElementById('attachment_url');
                 const urlStatus = document.getElementById('urlStatus');
 
-                kategoriSelect.addEventListener('change', function() {
-                    const kategoriId = this.value;
+                subKategoriSelect.addEventListener('change', function() {
+                    const subKategoriId = this.value;
                     const selectedOption = this.options[this.selectedIndex];
                     const nilai = selectedOption.getAttribute('data-nilai');
 
-                    if (kategoriId) {
+                    if (subKategoriId) {
                         // Show nilai
                         nilaiText.textContent = nilai;
                         nilaiDisplay.style.display = 'block';
-
-                        // Load sub kategori
-                        fetch(`/mahasiswa/kategori/${kategoriId}/sub-kategori`)
-                            .then(response => response.json())
-                            .then(data => {
-                                subKategoriSelect.innerHTML =
-                                '<option value="">Pilih Sub Kategori</option>';
-                                data.forEach(sub => {
-                                    const option = document.createElement('option');
-                                    option.value = sub.id;
-                                    option.textContent = sub.nama;
-                                    subKategoriSelect.appendChild(option);
-                                });
-                                subKategoriSelect.disabled = false;
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                                alert('Gagal memuat sub kategori');
-                            });
                     } else {
                         nilaiDisplay.style.display = 'none';
-                        subKategoriSelect.innerHTML =
-                        '<option value="">Pilih kategori terlebih dahulu</option>';
-                        subKategoriSelect.disabled = true;
                     }
                 });
+
+                // Trigger change event if old data exists
+                if (subKategoriSelect.value) {
+                    subKategoriSelect.dispatchEvent(new Event('change'));
+                }
 
                 checkUrlBtn.addEventListener('click', function() {
                     const url = attachmentUrl.value;

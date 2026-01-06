@@ -25,7 +25,6 @@ class KategoriSkpiController extends Controller
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
             'nama_en' => 'nullable|string|max:255',
-            'nilai' => 'required|integer|min:0',
             'deskripsi' => 'nullable|string',
         ]);
 
@@ -45,7 +44,6 @@ class KategoriSkpiController extends Controller
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
             'nama_en' => 'nullable|string|max:255',
-            'nilai' => 'required|integer|min:0',
             'deskripsi' => 'nullable|string',
         ]);
 
@@ -75,6 +73,7 @@ class KategoriSkpiController extends Controller
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
             'nama_en' => 'nullable|string|max:255',
+            'nilai' => 'required|integer|min:0',
             'deskripsi' => 'nullable|string',
         ]);
 
@@ -89,6 +88,7 @@ class KategoriSkpiController extends Controller
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
             'nama_en' => 'nullable|string|max:255',
+            'nilai' => 'required|integer|min:0',
             'deskripsi' => 'nullable|string',
         ]);
 

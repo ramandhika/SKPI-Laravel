@@ -37,20 +37,24 @@
                     <div class="space-y-6">
                         <div>
                             <label class="block text-sm font-bold text-slate-700 mb-2">
-                                Kategori SKPI <span class="text-rose-500">*</span>
+                                Sub Kategori SKPI <span class="text-rose-500">*</span>
                             </label>
-                            <select name="kategori_skpi_id" id="kategori_skpi_id"
+                            <select name="sub_kategori_skpi_id" id="sub_kategori_skpi_id"
                                 class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none cursor-pointer"
                                 required>
-                                <option value="">-- Pilih Kategori --</option>
+                                <option value="">-- Pilih Sub Kategori --</option>
                                 @foreach ($kategoris as $kategori)
-                                    <option value="{{ $kategori->id }}" data-nilai="{{ $kategori->nilai }}"
-                                        {{ old('kategori_skpi_id', $skpi->kategori_skpi_id) == $kategori->id ? 'selected' : '' }}>
-                                        {{ $kategori->nama }}
-                                    </option>
+                                    <optgroup label="{{ $kategori->nama }}">
+                                        @foreach ($kategori->subKategori as $sub)
+                                            <option value="{{ $sub->id }}" data-nilai="{{ $sub->nilai }}"
+                                                {{ old('sub_kategori_skpi_id', $skpi->sub_kategori_skpi_id) == $sub->id ? 'selected' : '' }}>
+                                                {{ $sub->nama }} - {{ $sub->nilai }} poin
+                                            </option>
+                                        @endforeach
+                                    </optgroup>
                                 @endforeach
                             </select>
-                            @error('kategori_skpi_id')
+                            @error('sub_kategori_skpi_id')
                                 <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
                         </div>
@@ -60,140 +64,103 @@
                                 class="flex items-center gap-3 p-4 bg-indigo-50 border border-indigo-100 rounded-xl text-indigo-700">
                                 <div
                                     class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-indigo-600 shadow-sm font-bold text-lg">
-                                    <span id="nilaiText">{{ $skpi->kategori->nilai ?? 0 }}</span>
+                                    <span id="nilaiText">{{ $skpi->subKategori->nilai ?? 0 }}</span>
                                 </div>
                                 <div>
                                     <p class="text-xs font-bold uppercase tracking-wide opacity-70">Poin Kredit</p>
-                                    <p class="text-sm font-semibold">Nilai Kategori Ini</p>
+                                    <p class="text-sm font-semibold">Nilai Sub Kategori Ini</p>
                                 </div>
                             </div>
                         </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-slate-700 mb-2">
-                                Sub Kategori <span class="text-rose-500">*</span>
-                            </label>
-                            <select name="sub_kategori_skpi_id" id="sub_kategori_skpi_id"
-                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none cursor-pointer"
-                                required>
-                                {{-- Akan diisi via JS --}}
-                            </select>
-                            @error('sub_kategori_skpi_id')
-                                <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
+                        @error('sub_kategori_skpi_id')
+                            <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
-
-                    <div class="space-y-6">
-                        <div>
-                            <label class="block text-sm font-bold text-slate-700 mb-2">
-                                Nama Kegiatan (Indonesia) <span class="text-rose-500">*</span>
-                            </label>
-                            <input type="text" name="nama_kegiatan"
-                                value="{{ old('nama_kegiatan', $skpi->nama_kegiatan) }}"
-                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none"
-                                required>
-                            @error('nama_kegiatan')
-                                <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-slate-700 mb-2">
-                                Nama Kegiatan (English)
-                            </label>
-                            <input type="text" name="nama_kegiatan_en"
-                                value="{{ old('nama_kegiatan_en', $skpi->nama_kegiatan_en) }}"
-                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none">
-                            @error('nama_kegiatan_en')
-                                <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    </div>
-
                 </div>
 
-                <div class="mb-8 p-6 bg-slate-50 rounded-2xl border border-slate-200 border-dashed">
-                    <label class="block text-sm font-bold text-slate-700 mb-3">
-                        Link Bukti (Google Drive) <span class="text-rose-500">*</span>
-                    </label>
-
-                    <div class="flex flex-col md:flex-row gap-3">
-                        <div class="relative flex-1">
-                            <i class="fab fa-google-drive absolute left-4 top-3.5 text-slate-400 text-lg"></i>
-                            <input type="url" name="attachment_url" id="attachment_url"
-                                value="{{ old('attachment_url', $skpi->attachment_url) }}"
-                                class="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none"
-                                required>
-                        </div>
-                        <button type="button" id="checkUrlBtn"
-                            class="px-6 py-3 bg-white border border-slate-200 text-slate-600 font-semibold rounded-xl hover:border-indigo-300 hover:text-indigo-600 transition shadow-sm whitespace-nowrap">
-                            <i class="fas fa-link mr-2"></i> Cek Akses
-                        </button>
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">
+                            Nama Kegiatan (Indonesia) <span class="text-rose-500">*</span>
+                        </label>
+                        <input type="text" name="nama_kegiatan" value="{{ old('nama_kegiatan', $skpi->nama_kegiatan) }}"
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none"
+                            required>
+                        @error('nama_kegiatan')
+                            <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
 
-                    <div id="urlStatus" class="mt-3"></div>
-                    @error('attachment_url')
-                        <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">
+                            Nama Kegiatan (English)
+                        </label>
+                        <input type="text" name="nama_kegiatan_en"
+                            value="{{ old('nama_kegiatan_en', $skpi->nama_kegiatan_en) }}"
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none">
+                        @error('nama_kegiatan_en')
+                            <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
 
-                <div
-                    class="flex flex-col-reverse md:flex-row items-center justify-end gap-4 pt-6 border-t border-slate-100">
-                    <button type="submit" name="status" value="draft"
-                        class="w-full md:w-auto px-8 py-3.5 bg-slate-100 text-slate-600 font-bold rounded-xl hover:bg-slate-200 transition">
-                        <i class="fas fa-save mr-2"></i> Update Draft
-                    </button>
-                    <button type="submit" name="status" value="submitted"
-                        class="w-full md:w-auto px-8 py-3.5 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30">
-                        <i class="fas fa-paper-plane mr-2"></i> Submit Ulang
-                    </button>
-                </div>
-            </form>
         </div>
+
+        <div class="mb-8 p-6 bg-slate-50 rounded-2xl border border-slate-200 border-dashed">
+            <label class="block text-sm font-bold text-slate-700 mb-3">
+                Link Bukti (Google Drive) <span class="text-rose-500">*</span>
+            </label>
+
+            <div class="flex flex-col md:flex-row gap-3">
+                <div class="relative flex-1">
+                    <i class="fab fa-google-drive absolute left-4 top-3.5 text-slate-400 text-lg"></i>
+                    <input type="url" name="attachment_url" id="attachment_url"
+                        value="{{ old('attachment_url', $skpi->attachment_url) }}"
+                        class="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none"
+                        required>
+                </div>
+                <button type="button" id="checkUrlBtn"
+                    class="px-6 py-3 bg-white border border-slate-200 text-slate-600 font-semibold rounded-xl hover:border-indigo-300 hover:text-indigo-600 transition shadow-sm whitespace-nowrap">
+                    <i class="fas fa-link mr-2"></i> Cek Akses
+                </button>
+            </div>
+
+            <div id="urlStatus" class="mt-3"></div>
+            @error('attachment_url')
+                <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div class="flex flex-col-reverse md:flex-row items-center justify-end gap-4 pt-6 border-t border-slate-100">
+            <button type="submit" name="status" value="draft"
+                class="w-full md:w-auto px-8 py-3.5 bg-slate-100 text-slate-600 font-bold rounded-xl hover:bg-slate-200 transition">
+                <i class="fas fa-save mr-2"></i> Update Draft
+            </button>
+            <button type="submit" name="status" value="submitted"
+                class="w-full md:w-auto px-8 py-3.5 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30">
+                <i class="fas fa-paper-plane mr-2"></i> Submit Ulang
+            </button>
+        </div>
+        </form>
+    </div>
     </div>
 
     @push('scripts')
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                const kategoriSelect = document.getElementById('kategori_skpi_id');
                 const subKategoriSelect = document.getElementById('sub_kategori_skpi_id');
                 const nilaiText = document.getElementById('nilaiText');
                 const checkUrlBtn = document.getElementById('checkUrlBtn');
                 const attachmentUrl = document.getElementById('attachment_url');
                 const urlStatus = document.getElementById('urlStatus');
 
-                // Initial State for Edit Page
-                const selectedSubId = "{{ $skpi->sub_kategori_skpi_id }}";
-
-                function loadSubKategori(kategoriId) {
-                    if (!kategoriId) return;
-
-                    // ... (Logic fetch sama seperti create.blade.php) ...
-                    // Tambahkan logic: if (sub.id == selectedSubId) option.selected = true;
-                    fetch(`/mahasiswa/kategori/${kategoriId}/sub-kategori`)
-                        .then(response => response.json())
-                        .then(data => {
-                            subKategoriSelect.innerHTML = '<option value="">Pilih Sub Kategori</option>';
-                            data.forEach(sub => {
-                                const option = new Option(sub.nama, sub.id);
-                                if (sub.id == selectedSubId) option.selected = true;
-                                subKategoriSelect.add(option);
-                            });
-                            subKategoriSelect.disabled = false;
-                        });
-                }
-
-                // Load initial data
-                if (kategoriSelect.value) {
-                    loadSubKategori(kategoriSelect.value);
-                }
-
-                // Event Listeners (Sama seperti create.blade.php)
-                kategoriSelect.addEventListener('change', function() {
+                // Handle sub kategori change
+                subKategoriSelect.addEventListener('change', function() {
                     const selectedOption = this.options[this.selectedIndex];
-                    nilaiText.textContent = selectedOption.getAttribute('data-nilai') || 0;
-                    loadSubKategori(this.value);
+                    const nilai = selectedOption.getAttribute('data-nilai');
+                    if (this.value) {
+                        nilaiText.textContent = nilai || 0;
+                    }
                 });
 
                 document.getElementById('checkUrlBtn').addEventListener('click', function() {

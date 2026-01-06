@@ -1,71 +1,99 @@
 @extends('layouts.app')
-@section('title', 'Kelola Program Studi')
-@section('page-title', 'Kelola Program Studi')
 
-@section('sidebar')
-<a href="{{ route('admin.dashboard') }}" class="block px-6 py-3 hover:bg-indigo-700 transition">
-    <i class="fas fa-home mr-3"></i> Dashboard
-</a>
-<a href="{{ route('admin.mahasiswa.index') }}" class="block px-6 py-3 hover:bg-indigo-700 transition">
-    <i class="fas fa-users mr-3"></i> Mahasiswa
-</a>
-<a href="{{ route('admin.kategori.index') }}" class="block px-6 py-3 hover:bg-indigo-700 transition">
-    <i class="fas fa-list mr-3"></i> Kategori SKPI
-</a>
-<a href="{{ route('admin.periode.index') }}" class="block px-6 py-3 hover:bg-indigo-700 transition">
-    <i class="fas fa-calendar mr-3"></i> Periode Input
-</a>
-<a href="{{ route('admin.program-studi.index') }}" class="block px-6 py-3 bg-indigo-900 border-l-4 border-white">
-    <i class="fas fa-graduation-cap mr-3"></i> Program Studi
-</a>
-@endsection
+@section('title', 'Kelola Program Studi')
+@section('page-title', 'Program Studi')
 
 @section('content')
-<div class="mb-6">
-    <a href="{{ route('admin.program-studi.create') }}" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition inline-block">
-        <i class="fas fa-plus mr-2"></i> Tambah Program Studi
-    </a>
-</div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    @forelse($programStudis as $prodi)
-    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-        <div class="bg-indigo-600 text-white px-6 py-4">
-            <div class="flex items-center justify-between">
-                <h3 class="text-lg font-semibold">{{ $prodi->nama }}</h3>
-                <span class="px-3 py-1 bg-white text-indigo-600 rounded-full text-sm font-bold">{{ $prodi->kode }}</span>
+    <div class="mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div class="flex items-center gap-3">
+            <div class="p-3 bg-indigo-50 rounded-xl text-indigo-600">
+                <i class="fas fa-graduation-cap text-xl"></i>
             </div>
-            @if($prodi->nama_en)
-                <p class="text-sm text-indigo-100 mt-1">{{ $prodi->nama_en }}</p>
-            @endif
-        </div>
-        <div class="p-6">
-            <div class="mb-4">
-                <p class="text-sm text-gray-500">Dosen Pengelola:</p>
-                <p class="font-medium">{{ $prodi->dosen ? $prodi->dosen->name : '-' }}</p>
-            </div>
-            <div class="flex gap-2">
-                <a href="{{ route('admin.program-studi.edit', $prodi) }}" class="flex-1 text-center px-3 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700">
-                    <i class="fas fa-edit"></i> Edit
-                </a>
-                <form action="{{ route('admin.program-studi.destroy', $prodi) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus?')">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </form>
+            <div>
+                <h3 class="font-bold text-slate-800">Daftar Program Studi</h3>
+                <p class="text-sm text-slate-500">Kelola data prodi dan dosen pengelola.</p>
             </div>
         </div>
-    </div>
-    @empty
-    <div class="col-span-3 bg-white rounded-lg shadow p-8 text-center text-gray-500">
-        Belum ada program studi
-    </div>
-    @endforelse
-</div>
 
-<div class="mt-6">
-    {{ $programStudis->links() }}
-</div>
+        <a href="{{ route('admin.program-studi.create') }}"
+            class="inline-flex items-center justify-center px-5 py-2.5 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30">
+            <i class="fas fa-plus mr-2"></i> Tambah Prodi
+        </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @forelse($programStudis as $prodi)
+            <div
+                class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-md transition duration-300 group">
+                <div class="bg-gradient-to-r from-indigo-600 to-indigo-700 p-6 relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none">
+                    </div>
+
+                    <div class="flex justify-between items-start relative z-10">
+                        <div>
+                            <h3 class="text-lg font-bold text-white leading-tight">{{ $prodi->nama }}</h3>
+                            @if ($prodi->nama_en)
+                                <p class="text-xs text-indigo-200 mt-1 italic">{{ $prodi->nama_en }}</p>
+                            @endif
+                        </div>
+                        <span
+                            class="inline-flex items-center justify-center h-8 px-3 bg-white/20 backdrop-blur-sm text-white text-xs font-mono font-bold rounded-lg border border-white/10">
+                            {{ $prodi->kode }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="p-6">
+                    <div class="mb-6 flex items-start gap-3">
+                        <div
+                            class="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 border border-slate-100 flex-shrink-0">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">Dosen Pengelola</p>
+                            <p class="text-sm font-semibold text-slate-700">
+                                {{ $prodi->dosen ? $prodi->dosen->name : 'Belum ditentukan' }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 pt-4 border-t border-slate-50">
+                        <a href="{{ route('admin.program-studi.edit', $prodi) }}"
+                            class="flex-1 inline-flex items-center justify-center px-4 py-2 bg-amber-50 text-amber-600 text-sm font-semibold rounded-lg hover:bg-amber-100 transition border border-amber-100">
+                            <i class="fas fa-edit mr-2"></i> Edit
+                        </a>
+
+                        <form action="{{ route('admin.program-studi.destroy', $prodi) }}" method="POST"
+                            class="inline-block"
+                            onsubmit="return confirm('Yakin ingin menghapus Program Studi ini? Data terkait mungkin akan terpengaruh.')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"
+                                class="inline-flex items-center justify-center w-10 h-10 bg-white text-rose-500 rounded-lg hover:bg-rose-50 transition border border-slate-200 hover:border-rose-200">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @empty
+            <div
+                class="col-span-full flex flex-col items-center justify-center p-12 bg-white rounded-2xl border border-slate-100 border-dashed">
+                <div class="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mb-4 text-slate-300">
+                    <i class="fas fa-university text-3xl"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-700">Belum ada Program Studi</h3>
+                <p class="text-slate-500 text-sm mt-1 mb-4">Silakan tambahkan data prodi baru.</p>
+                <a href="{{ route('admin.program-studi.create') }}"
+                    class="text-indigo-600 font-semibold text-sm hover:underline">Tambah Prodi Baru &rarr;</a>
+            </div>
+        @endforelse
+    </div>
+
+    <div class="mt-8">
+        {{ $programStudis->links() }}
+    </div>
+
 @endsection

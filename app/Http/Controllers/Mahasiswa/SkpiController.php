@@ -15,8 +15,18 @@ class SkpiController extends Controller
     public function index(Request $request)
     {
         $user = auth()->user();
+
+        $acceptedSkpis = SkpiMahasiswa::where('user_id', $user->id)
+            ->where('status', 'accepted')
+            ->with('subKategori')
+            ->get();
+
+        $totalPoin = $acceptedSkpis->sum(function ($skpi) {
+            return $skpi->subKategori ? $skpi->subKategori->nilai : 0;
+        });
+
         $query = SkpiMahasiswa::where('user_id', $user->id)
-            ->with(['kategori', 'subKategori', 'reviewer']);
+            ->with(['kategori', 'subKategori']);
 
         if ($request->filled('status')) {
             $query->where('status', $request->status);
@@ -24,12 +34,11 @@ class SkpiController extends Controller
 
         $skpis = $query->latest()->paginate(20);
 
-        return view('mahasiswa.skpi.index', compact('skpis'));
+        return view('mahasiswa.skpi.index', compact('skpis', 'totalPoin'));
     }
 
     public function create()
     {
-        // Check if there's an active period
         $activePeriod = PeriodeInput::where('is_active', true)
             ->where('tanggal_mulai', '<=', now())
             ->where('tanggal_selesai', '>=', now())
@@ -46,7 +55,6 @@ class SkpiController extends Controller
 
     public function store(Request $request)
     {
-        // Check if there's an active period
         $activePeriod = PeriodeInput::where('is_active', true)
             ->where('tanggal_mulai', '<=', now())
             ->where('tanggal_selesai', '>=', now())
@@ -58,7 +66,6 @@ class SkpiController extends Controller
         }
 
         $validated = $request->validate([
-            'kategori_skpi_id' => 'required|exists:kategori_skpis,id',
             'sub_kategori_skpi_id' => 'required|exists:sub_kategori_skpis,id',
             'nama_kegiatan' => 'required|string|max:255',
             'nama_kegiatan_en' => 'nullable|string|max:255',
@@ -66,7 +73,9 @@ class SkpiController extends Controller
             'status' => 'required|in:draft,submitted',
         ]);
 
-        // Validate if attachment is publicly accessible
+        $subKategori = SubKategoriSkpi::findOrFail($validated['sub_kategori_skpi_id']);
+        $validated['kategori_skpi_id'] = $subKategori->kategori_skpi_id;
+
         if (!$this->isUrlPubliclyAccessible($validated['attachment_url'])) {
             return back()->withErrors([
                 'attachment_url' => 'Link Google Drive tidak dapat diakses secara publik. Pastikan file sudah di-share dengan "Anyone with the link"'
@@ -77,8 +86,8 @@ class SkpiController extends Controller
 
         SkpiMahasiswa::create($validated);
 
-        $message = $validated['status'] === 'draft' 
-            ? 'Data SKPI berhasil disimpan sebagai draft' 
+        $message = $validated['status'] === 'draft'
+            ? 'Data SKPI berhasil disimpan sebagai draft'
             : 'Data SKPI berhasil disubmit';
 
         return redirect()->route('mahasiswa.skpi.index')
@@ -87,12 +96,10 @@ class SkpiController extends Controller
 
     public function edit(SkpiMahasiswa $skpi)
     {
-        // Check if user owns this SKPI
         if ($skpi->user_id !== auth()->id()) {
             abort(403);
         }
 
-        // Check if SKPI is still editable (draft or submitted, not accepted/rejected)
         if (in_array($skpi->status, ['accepted', 'rejected'])) {
             return redirect()->route('mahasiswa.skpi.index')
                 ->with('error', 'Data SKPI yang sudah direview tidak dapat diedit');
@@ -104,19 +111,16 @@ class SkpiController extends Controller
 
     public function update(Request $request, SkpiMahasiswa $skpi)
     {
-        // Check if user owns this SKPI
         if ($skpi->user_id !== auth()->id()) {
             abort(403);
         }
 
-        // Check if SKPI is still editable
         if (in_array($skpi->status, ['accepted', 'rejected'])) {
             return redirect()->route('mahasiswa.skpi.index')
                 ->with('error', 'Data SKPI yang sudah direview tidak dapat diedit');
         }
 
         $validated = $request->validate([
-            'kategori_skpi_id' => 'required|exists:kategori_skpis,id',
             'sub_kategori_skpi_id' => 'required|exists:sub_kategori_skpis,id',
             'nama_kegiatan' => 'required|string|max:255',
             'nama_kegiatan_en' => 'nullable|string|max:255',
@@ -124,7 +128,9 @@ class SkpiController extends Controller
             'status' => 'required|in:draft,submitted',
         ]);
 
-        // Validate if attachment is publicly accessible
+        $subKategori = SubKategoriSkpi::findOrFail($validated['sub_kategori_skpi_id']);
+        $validated['kategori_skpi_id'] = $subKategori->kategori_skpi_id;
+
         if (!$this->isUrlPubliclyAccessible($validated['attachment_url'])) {
             return back()->withErrors([
                 'attachment_url' => 'Link Google Drive tidak dapat diakses secara publik. Pastikan file sudah di-share dengan "Anyone with the link"'
@@ -133,8 +139,8 @@ class SkpiController extends Controller
 
         $skpi->update($validated);
 
-        $message = $validated['status'] === 'draft' 
-            ? 'Data SKPI berhasil diupdate sebagai draft' 
+        $message = $validated['status'] === 'draft'
+            ? 'Data SKPI berhasil diupdate sebagai draft'
             : 'Data SKPI berhasil disubmit';
 
         return redirect()->route('mahasiswa.skpi.index')
@@ -143,12 +149,10 @@ class SkpiController extends Controller
 
     public function destroy(SkpiMahasiswa $skpi)
     {
-        // Check if user owns this SKPI
         if ($skpi->user_id !== auth()->id()) {
             abort(403);
         }
 
-        // Only allow deletion of draft items
         if ($skpi->status !== 'draft') {
             return redirect()->route('mahasiswa.skpi.index')
                 ->with('error', 'Hanya data draft yang dapat dihapus');
@@ -170,11 +174,11 @@ class SkpiController extends Controller
     {
         $url = $request->input('url');
         $isAccessible = $this->isUrlPubliclyAccessible($url);
-        
+
         return response()->json([
             'accessible' => $isAccessible,
-            'message' => $isAccessible 
-                ? 'Link dapat diakses secara publik' 
+            'message' => $isAccessible
+                ? 'Link dapat diakses secara publik'
                 : 'Link tidak dapat diakses. Pastikan file sudah di-share dengan "Anyone with the link"'
         ]);
     }
@@ -182,16 +186,13 @@ class SkpiController extends Controller
     private function isUrlPubliclyAccessible($url)
     {
         try {
-            // Check if it's a Google Drive link
             if (strpos($url, 'drive.google.com') !== false) {
                 $response = Http::timeout(5)->get($url);
-                
-                // Check if we can access the file (status 200) and it's not a login page
-                return $response->successful() && 
-                       strpos($response->body(), 'Sign in') === false;
+
+                return $response->successful() &&
+                    strpos($response->body(), 'Sign in') === false;
             }
-            
-            // For other URLs, just check if they're accessible
+
             $response = Http::timeout(5)->head($url);
             return $response->successful();
         } catch (\Exception $e) {

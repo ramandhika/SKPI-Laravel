@@ -5,9 +5,49 @@
 
 @section('content')
 
+    <div class="mb-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div
+            class="bg-gradient-to-br from-indigo-600 to-indigo-800 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden col-span-1 md:col-span-1">
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-white/10 rounded-full blur-xl pointer-events-none">
+            </div>
+
+            <div class="relative z-10 flex items-center justify-between">
+                <div>
+                    <p class="text-indigo-200 text-xs font-bold uppercase tracking-wider mb-1">Total Poin Disetujui</p>
+                    <h2 class="text-4xl font-bold">{{ $totalPoin }} <span
+                            class="text-lg font-normal text-indigo-300">Poin</span></h2>
+                </div>
+                <div class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                    <i class="fas fa-star text-yellow-300 text-xl"></i>
+                </div>
+            </div>
+            <div class="mt-4 text-xs text-indigo-200 border-t border-indigo-500/30 pt-3">
+                Terakumulasi dari seluruh kegiatan berstatus <b>Accepted</b>.
+            </div>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm col-span-1 md:col-span-2 flex items-center">
+            <div class="flex items-start gap-4">
+                <div class="p-3 bg-amber-50 text-amber-600 rounded-xl">
+                    <i class="fas fa-info-circle text-xl"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-700">Status Poin</h4>
+                    <p class="text-sm text-slate-500 mt-1">
+                        Poin hanya dihitung jika status pengajuan sudah
+                        <span
+                            class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-700">
+                            <i class="fas fa-check mr-1"></i> Accepted
+                        </span>
+                        oleh dosen wali/kaprodi. Pastikan data yang Anda upload valid.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div
         class="mb-6 bg-white border border-slate-200 rounded-xl p-4 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
-
         <form method="GET" class="flex items-center gap-2 w-full md:w-auto">
             <div class="relative w-full md:w-64">
                 <i class="fas fa-filter absolute left-3 top-3.5 text-slate-400 text-sm"></i>
@@ -15,7 +55,8 @@
                     class="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none appearance-none cursor-pointer text-sm font-medium">
                     <option value="">Semua Status</option>
                     <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>📝 Draft</option>
-                    <option value="submitted" {{ request('status') == 'submitted' ? 'selected' : '' }}>⏳ Menunggu Validasi</option>
+                    <option value="submitted" {{ request('status') == 'submitted' ? 'selected' : '' }}>⏳ Menunggu Validasi
+                    </option>
                     <option value="accepted" {{ request('status') == 'accepted' ? 'selected' : '' }}>✅ Disetujui</option>
                     <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>❌ Ditolak</option>
                 </select>
@@ -46,7 +87,6 @@
                 <tbody class="divide-y divide-slate-100">
                     @forelse($skpis as $skpi)
                         <tr class="hover:bg-slate-50/80 transition group">
-
                             <td class="px-6 py-4 align-top">
                                 <p class="text-sm font-bold text-slate-800 mb-1">{{ $skpi->nama_kegiatan }}</p>
                                 @if ($skpi->nama_kegiatan_en)
@@ -67,7 +107,7 @@
                                 </span>
                                 <p class="text-xs text-slate-500">{{ $skpi->subKategori->nama }}</p>
                                 <p class="text-xs font-bold text-slate-400 mt-1">Nilai: <span
-                                        class="text-slate-600">{{ $skpi->kategori->nilai }}</span></p>
+                                        class="text-slate-600">{{ $skpi->subKategori->nilai ?? 0 }}</span></p>
                             </td>
 
                             <td class="px-6 py-4 text-center align-top">

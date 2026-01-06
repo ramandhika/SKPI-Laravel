@@ -49,12 +49,12 @@
     @stack('styles')
 </head>
 
-<body class="bg-slate-50 text-slate-800 antialiased" x-data="{ sidebarOpen: false }">
+<body class="bg-slate-50 text-slate-800 antialiased h-screen overflow-hidden" x-data="{ sidebarOpen: false }">
 
-    <div class="min-h-screen flex flex-col md:flex-row">
+    <div class="flex h-full w-full">
 
         <div
-            class="md:hidden bg-white border-b border-slate-200 p-4 flex justify-between items-center sticky top-0 z-30">
+            class="fixed top-0 left-0 w-full bg-white border-b border-slate-200 p-4 flex justify-between items-center z-30 md:hidden">
             <span class="font-bold text-lg text-indigo-600">SKPI App</span>
             <button @click="sidebarOpen = !sidebarOpen" class="text-slate-600 focus:outline-none">
                 <i class="fas fa-bars text-xl"></i>
@@ -65,9 +65,9 @@
             class="fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-sm md:hidden" x-cloak></div>
 
         <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
-            class="fixed inset-y-0 left-0 z-50 w-72 bg-slate-900 text-white transition-transform duration-300 ease-in-out md:translate-x-0 md:static md:inset-auto md:flex md:w-72 md:flex-col shadow-xl">
+            class="fixed inset-y-0 left-0 z-50 w-72 bg-slate-900 text-white transition-transform duration-300 ease-in-out md:static md:translate-x-0 flex flex-col h-full shadow-xl shrink-0">
 
-            <div class="flex items-center justify-center h-20 border-b border-slate-700/50 bg-slate-900">
+            <div class="flex items-center justify-center h-20 border-b border-slate-700/50 bg-slate-900 shrink-0">
                 <div class="text-center">
                     <h1 class="text-2xl font-bold tracking-tight text-white">SKPI<span class="text-indigo-400">
                             Sistem</span></h1>
@@ -78,7 +78,6 @@
             </div>
 
             <div class="flex-1 overflow-y-auto py-6 px-4 space-y-1">
-
                 @if (auth()->check())
                     @if (auth()->user()->role === 'admin')
                         @include('sidebar.admin')
@@ -88,19 +87,19 @@
                         @include('sidebar.dosen')
                     @endif
                 @endif
-
             </div>
 
-            <div class="p-4 border-t border-slate-700/50 bg-slate-800/50">
+            <div class="p-4 border-t border-slate-700/50 bg-slate-800/50 shrink-0">
                 <div class="flex items-center gap-3 mb-4">
                     <div
-                        class="w-10 h-10 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold shadow-lg">
+                        class="w-10 h-10 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold shadow-lg shrink-0">
                         {{ substr(auth()->user()->name, 0, 1) }}
                     </div>
                     <div class="overflow-hidden">
                         <p class="text-sm font-medium text-white truncate">{{ auth()->user()->name }}</p>
                         <p class="text-xs text-slate-400 truncate" title="{{ auth()->user()->email }}">
-                            {{ auth()->user()->email }}</p>
+                            {{ auth()->user()->email }}
+                        </p>
                     </div>
                 </div>
 
@@ -114,10 +113,10 @@
             </div>
         </aside>
 
-        <main class="flex-1 flex flex-col min-w-0 overflow-hidden bg-slate-50">
+        <main class="flex-1 flex flex-col h-full min-w-0 overflow-hidden bg-slate-50 relative pt-16 md:pt-0">
 
             <header
-                class="bg-white border-b border-slate-200 sticky top-0 z-20 hidden md:flex items-center justify-between px-8 py-4 shadow-sm backdrop-blur-md bg-white/90">
+                class="bg-white border-b border-slate-200 sticky top-0 z-20 hidden md:flex items-center justify-between px-8 py-4 shadow-sm backdrop-blur-md bg-white/90 shrink-0">
                 <div>
                     <h2 class="text-xl font-bold text-slate-800">@yield('page-title')</h2>
                     <p class="text-sm text-slate-500 mt-0.5">Manage your academic achievements efficiently.</p>
@@ -132,20 +131,17 @@
             </header>
 
             <div class="flex-1 overflow-y-auto p-4 md:p-8">
-                <div class="max-w-7xl mx-auto">
+                <div class="max-w-7xl mx-auto min-h-full flex flex-col">
 
                     @if (session('success'))
                         <div x-data="{ show: true }" x-show="show" x-transition.duration.300ms
                             class="mb-6 flex items-center p-4 text-sm text-green-800 border border-green-200 rounded-xl bg-green-50 shadow-sm relative"
                             role="alert">
                             <i class="fas fa-check-circle text-green-500 text-lg mr-3"></i>
-                            <div>
-                                <span class="font-medium">Success!</span> {{ session('success') }}
-                            </div>
+                            <div><span class="font-medium">Success!</span> {{ session('success') }}</div>
                             <button @click="show = false"
-                                class="absolute right-4 top-4 text-green-600 hover:text-green-800">
-                                <i class="fas fa-times"></i>
-                            </button>
+                                class="absolute right-4 top-4 text-green-600 hover:text-green-800"><i
+                                    class="fas fa-times"></i></button>
                         </div>
                     @endif
 
@@ -154,22 +150,17 @@
                             class="mb-6 flex items-center p-4 text-sm text-red-800 border border-red-200 rounded-xl bg-red-50 shadow-sm relative"
                             role="alert">
                             <i class="fas fa-exclamation-circle text-red-500 text-lg mr-3"></i>
-                            <div>
-                                <span class="font-medium">Error!</span> {{ session('error') }}
-                            </div>
+                            <div><span class="font-medium">Error!</span> {{ session('error') }}</div>
                             <button @click="show = false"
-                                class="absolute right-4 top-4 text-red-600 hover:text-red-800">
-                                <i class="fas fa-times"></i>
-                            </button>
+                                class="absolute right-4 top-4 text-red-600 hover:text-red-800"><i
+                                    class="fas fa-times"></i></button>
                         </div>
                     @endif
 
                     @if ($errors->any())
                         <div class="mb-6 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded-r-xl shadow-sm">
-                            <div class="flex items-center mb-2">
-                                <i class="fas fa-exclamation-triangle mr-2"></i>
-                                <span class="font-bold">Perhatikan hal berikut:</span>
-                            </div>
+                            <div class="flex items-center mb-2"><i class="fas fa-exclamation-triangle mr-2"></i><span
+                                    class="font-bold">Perhatikan hal berikut:</span></div>
                             <ul class="list-disc list-inside text-sm space-y-1 ml-1">
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
@@ -178,13 +169,14 @@
                         </div>
                     @endif
 
-                    @yield('content')
+                    <div class="flex-1">
+                        @yield('content')
+                    </div>
 
+                    <footer class="mt-10 text-center text-xs text-slate-400 pb-4 shrink-0">
+                        &copy; {{ date('Y') }} SKPI System. All rights reserved.
+                    </footer>
                 </div>
-
-                <footer class="mt-10 text-center text-xs text-slate-400 pb-4">
-                    &copy; {{ date('Y') }} SKPI System. All rights reserved.
-                </footer>
             </div>
         </main>
     </div>

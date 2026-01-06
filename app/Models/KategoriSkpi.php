@@ -12,7 +12,6 @@ class KategoriSkpi extends Model
     protected $fillable = [
         'nama',
         'nama_en',
-        'nilai',
         'deskripsi',
     ];
 

@@ -1,150 +1,230 @@
 @extends('layouts.app')
 
-@section('title', 'Sub Kategori - ' . $kategori->nama)
-@section('page-title', 'Sub Kategori: ' . $kategori->nama)
-
-@section('sidebar')
-<a href="{{ route('admin.dashboard') }}" class="block px-6 py-3 hover:bg-indigo-700 transition">
-    <i class="fas fa-home mr-3"></i> Dashboard
-</a>
-<a href="{{ route('admin.mahasiswa.index') }}" class="block px-6 py-3 hover:bg-indigo-700 transition">
-    <i class="fas fa-users mr-3"></i> Mahasiswa
-</a>
-<a href="{{ route('admin.kategori.index') }}" class="block px-6 py-3 bg-indigo-900 border-l-4 border-white">
-    <i class="fas fa-list mr-3"></i> Kategori SKPI
-</a>
-<a href="{{ route('admin.periode.index') }}" class="block px-6 py-3 hover:bg-indigo-700 transition">
-    <i class="fas fa-calendar mr-3"></i> Periode Input
-</a>
-<a href="{{ route('admin.program-studi.index') }}" class="block px-6 py-3 hover:bg-indigo-700 transition">
-    <i class="fas fa-graduation-cap mr-3"></i> Program Studi
-</a>
-@endsection
+@section('title', 'Sub Kategori')
+@section('page-title', 'Detail Sub Kategori')
 
 @section('content')
-<div class="mb-6 flex justify-between items-center">
-    <a href="{{ route('admin.kategori.index') }}" class="text-indigo-600 hover:text-indigo-800">
-        <i class="fas fa-arrow-left mr-2"></i> Kembali ke Kategori
-    </a>
-    <button onclick="document.getElementById('createModal').classList.remove('hidden')" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
-        <i class="fas fa-plus mr-2"></i> Tambah Sub Kategori
-    </button>
-</div>
 
-<div class="bg-white rounded-lg shadow overflow-hidden">
-    <div class="px-6 py-4 bg-indigo-50 border-b">
-        <h3 class="text-lg font-semibold text-indigo-900">{{ $kategori->nama }}</h3>
-        <p class="text-sm text-indigo-700">Nilai: {{ $kategori->nilai }} Poin</p>
+    <div class="mb-8">
+        <a href="{{ route('admin.kategori.index') }}"
+            class="inline-flex items-center text-sm font-medium text-slate-500 hover:text-indigo-600 mb-6 transition">
+            <div
+                class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center mr-2 shadow-sm">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+            Kembali ke Kategori Induk
+        </a>
+
+        <div
+            class="bg-indigo-600 rounded-2xl p-6 md:p-8 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row justify-between items-end md:items-center gap-4">
+            <div
+                class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none">
+            </div>
+
+            <div class="relative z-10">
+                <div class="flex items-center gap-2 mb-2 text-indigo-200 text-xs font-bold uppercase tracking-wider">
+                    <i class="fas fa-layer-group"></i> Parent Category
+                </div>
+                <h2 class="text-3xl font-bold mb-1">{{ $kategori->nama }}</h2>
+                <p class="text-indigo-100 text-sm max-w-2xl">
+                    {{ $kategori->deskripsi ?? 'Kelola sub-kategori dan poin penilaian untuk kategori ini.' }}</p>
+            </div>
+
+            <button onclick="document.getElementById('createModal').classList.remove('hidden')"
+                class="relative z-10 inline-flex items-center px-5 py-3 bg-white text-indigo-600 font-bold rounded-xl hover:bg-indigo-50 transition shadow-md whitespace-nowrap">
+                <i class="fas fa-plus mr-2"></i> Tambah Sub
+            </button>
+        </div>
     </div>
-    <table class="w-full">
-        <thead class="bg-gray-50">
-            <tr>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nama (ID)</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nama (EN)</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Aksi</th>
-            </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-200">
-            @forelse($subKategoris as $sub)
-            <tr class="hover:bg-gray-50">
-                <td class="px-6 py-4">{{ $sub->nama }}</td>
-                <td class="px-6 py-4 text-gray-600">{{ $sub->nama_en ?? '-' }}</td>
-                <td class="px-6 py-4">
-                    <div class="flex gap-2">
-                        <button onclick="editSubKategori({{ $sub->id }}, '{{ $sub->nama }}', '{{ $sub->nama_en }}', '{{ $sub->deskripsi }}')" class="text-blue-600 hover:text-blue-800">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <form action="{{ route('admin.kategori.sub-kategori.destroy', [$kategori, $sub]) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-red-600 hover:text-red-800">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </form>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider border-b border-slate-100">
+                        <th class="px-6 py-4 font-semibold">Nama Sub Kategori</th>
+                        <th class="px-6 py-4 font-semibold">Deskripsi</th>
+                        <th class="px-6 py-4 font-semibold text-center">Poin / Nilai</th>
+                        <th class="px-6 py-4 font-semibold text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    @forelse($subKategoris as $sub)
+                        <tr class="hover:bg-slate-50/80 transition duration-150">
+                            <td class="px-6 py-4 align-top">
+                                <p class="text-sm font-bold text-slate-800">{{ $sub->nama }}</p>
+                                @if ($sub->nama_en)
+                                    <p class="text-xs text-slate-500 italic mt-0.5">{{ $sub->nama_en }}</p>
+                                @endif
+                            </td>
+                            <td class="px-6 py-4 align-top">
+                                <p class="text-sm text-slate-600 line-clamp-2">{{ $sub->deskripsi ?? '-' }}</p>
+                            </td>
+                            <td class="px-6 py-4 align-top text-center">
+                                <span
+                                    class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-600 border border-emerald-100">
+                                    {{ $sub->nilai }} Poin
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 align-top text-center">
+                                <div class="flex items-center justify-center gap-2">
+                                    <button
+                                        onclick="editSubKategori({{ $sub->id }}, '{{ addslashes($sub->nama) }}', '{{ addslashes($sub->nama_en) }}', '{{ addslashes($sub->deskripsi) }}', {{ $sub->nilai }})"
+                                        class="p-2 rounded-lg text-amber-500 hover:bg-amber-50 hover:text-amber-600 transition"
+                                        title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+
+                                    <form action="{{ route('admin.kategori.sub-kategori.destroy', [$kategori, $sub]) }}"
+                                        method="POST" class="inline"
+                                        onsubmit="return confirm('Yakin ingin menghapus sub-kategori ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="p-2 rounded-lg text-rose-400 hover:bg-rose-50 hover:text-rose-600 transition"
+                                            title="Hapus">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="4" class="px-6 py-12 text-center">
+                                <div class="flex flex-col items-center justify-center text-slate-400">
+                                    <div class="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mb-3">
+                                        <i class="fas fa-list-ul text-2xl text-slate-300"></i>
+                                    </div>
+                                    <p class="text-sm font-medium">Belum ada sub kategori.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="createModal"
+        class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm transition-opacity">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6 transform transition-all scale-100">
+            <div class="flex justify-between items-center mb-6 border-b border-slate-100 pb-4">
+                <h3 class="text-lg font-bold text-slate-800">Tambah Sub Kategori</h3>
+                <button onclick="document.getElementById('createModal').classList.add('hidden')"
+                    class="text-slate-400 hover:text-slate-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <form action="{{ route('admin.kategori.sub-kategori.store', $kategori) }}" method="POST">
+                @csrf
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Nama Sub (Indonesia) <span
+                                class="text-rose-500">*</span></label>
+                        <input type="text" name="nama" required
+                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none">
                     </div>
-                </td>
-            </tr>
-            @empty
-            <tr>
-                <td colspan="3" class="px-6 py-8 text-center text-gray-500">
-                    Belum ada sub kategori
-                </td>
-            </tr>
-            @endforelse
-        </tbody>
-    </table>
-</div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Nama Sub (English)</label>
+                        <input type="text" name="nama_en"
+                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Bobot Nilai <span
+                                class="text-rose-500">*</span></label>
+                        <input type="number" name="nilai" min="0" value="0" required
+                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Deskripsi</label>
+                        <textarea name="deskripsi" rows="3"
+                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none resize-none"></textarea>
+                    </div>
+                </div>
 
-<!-- Create Modal -->
-<div id="createModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-    <div class="bg-white rounded-lg p-6 max-w-md w-full">
-        <h3 class="text-lg font-semibold mb-4">Tambah Sub Kategori</h3>
-        <form action="{{ route('admin.kategori.sub-kategori.store', $kategori) }}" method="POST">
-            @csrf
-            <div class="mb-4">
-                <label class="block text-gray-700 mb-2">Nama (Indonesia) <span class="text-red-500">*</span></label>
-                <input type="text" name="nama" required class="w-full px-3 py-2 border rounded">
-            </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 mb-2">Nama (English)</label>
-                <input type="text" name="nama_en" class="w-full px-3 py-2 border rounded">
-            </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 mb-2">Deskripsi</label>
-                <textarea name="deskripsi" rows="3" class="w-full px-3 py-2 border rounded"></textarea>
-            </div>
-            <div class="flex justify-end gap-2">
-                <button type="button" onclick="document.getElementById('createModal').classList.add('hidden')" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
-                    Batal
-                </button>
-                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">
-                    Simpan
-                </button>
-            </div>
-        </form>
+                <div class="flex gap-3 mt-8">
+                    <button type="button" onclick="document.getElementById('createModal').classList.add('hidden')"
+                        class="flex-1 px-4 py-2.5 bg-white border border-slate-200 text-slate-600 font-semibold rounded-xl hover:bg-slate-50 transition">
+                        Batal
+                    </button>
+                    <button type="submit"
+                        class="flex-1 px-4 py-2.5 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30">
+                        Simpan
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<!-- Edit Modal -->
-<div id="editModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-    <div class="bg-white rounded-lg p-6 max-w-md w-full">
-        <h3 class="text-lg font-semibold mb-4">Edit Sub Kategori</h3>
-        <form id="editForm" method="POST">
-            @csrf
-            @method('PUT')
-            <div class="mb-4">
-                <label class="block text-gray-700 mb-2">Nama (Indonesia) <span class="text-red-500">*</span></label>
-                <input type="text" id="edit_nama" name="nama" required class="w-full px-3 py-2 border rounded">
-            </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 mb-2">Nama (English)</label>
-                <input type="text" id="edit_nama_en" name="nama_en" class="w-full px-3 py-2 border rounded">
-            </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 mb-2">Deskripsi</label>
-                <textarea id="edit_deskripsi" name="deskripsi" rows="3" class="w-full px-3 py-2 border rounded"></textarea>
-            </div>
-            <div class="flex justify-end gap-2">
-                <button type="button" onclick="document.getElementById('editModal').classList.add('hidden')" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
-                    Batal
-                </button>
-                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">
-                    Update
+    <div id="editModal"
+        class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm transition-opacity">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6 transform transition-all scale-100">
+            <div class="flex justify-between items-center mb-6 border-b border-slate-100 pb-4">
+                <h3 class="text-lg font-bold text-slate-800">Edit Sub Kategori</h3>
+                <button onclick="document.getElementById('editModal').classList.add('hidden')"
+                    class="text-slate-400 hover:text-slate-600">
+                    <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
-        </form>
+
+            <form id="editForm" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Nama Sub (Indonesia) <span
+                                class="text-rose-500">*</span></label>
+                        <input type="text" id="edit_nama" name="nama" required
+                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Nama Sub (English)</label>
+                        <input type="text" id="edit_nama_en" name="nama_en"
+                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Bobot Nilai <span
+                                class="text-rose-500">*</span></label>
+                        <input type="number" id="edit_nilai" name="nilai" min="0" value="0" required
+                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Deskripsi</label>
+                        <textarea id="edit_deskripsi" name="deskripsi" rows="3"
+                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none resize-none"></textarea>
+                    </div>
+                </div>
+
+                <div class="flex gap-3 mt-8">
+                    <button type="button" onclick="document.getElementById('editModal').classList.add('hidden')"
+                        class="flex-1 px-4 py-2.5 bg-white border border-slate-200 text-slate-600 font-semibold rounded-xl hover:bg-slate-50 transition">
+                        Batal
+                    </button>
+                    <button type="submit"
+                        class="flex-1 px-4 py-2.5 bg-amber-500 text-white font-semibold rounded-xl hover:bg-amber-600 transition shadow-lg shadow-amber-500/30">
+                        Update
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-@push('scripts')
-<script>
-function editSubKategori(id, nama, nama_en, deskripsi) {
-    document.getElementById('edit_nama').value = nama;
-    document.getElementById('edit_nama_en').value = nama_en || '';
-    document.getElementById('edit_deskripsi').value = deskripsi || '';
-    document.getElementById('editForm').action = `/admin/kategori/{{ $kategori->id }}/sub-kategori/${id}`;
-    document.getElementById('editModal').classList.remove('hidden');
-}
-</script>
-@endpush
+    @push('scripts')
+        <script>
+            function editSubKategori(id, nama, nama_en, deskripsi, nilai) {
+                document.getElementById('edit_nama').value = nama;
+                document.getElementById('edit_nama_en').value = nama_en || '';
+                document.getElementById('edit_deskripsi').value = deskripsi || '';
+                document.getElementById('edit_nilai').value = nilai || 0;
+
+                // Set action URL dinamically
+                document.getElementById('editForm').action = `/admin/kategori/{{ $kategori->id }}/sub-kategori/${id}`;
+
+                document.getElementById('editModal').classList.remove('hidden');
+            }
+        </script>
+    @endpush
+
 @endsection

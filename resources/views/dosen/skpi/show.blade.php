@@ -52,7 +52,7 @@
                             </div>
                             <div>
                                 <p class="text-xs font-bold text-slate-400 uppercase mb-1">Poin Kredit</p>
-                                <p class="text-lg font-bold text-slate-700">{{ $skpi->kategori->nilai }} <span
+                                <p class="text-lg font-bold text-slate-700">{{ $skpi->subKategori->nilai ?? 0 }} <span
                                         class="text-sm font-normal text-slate-400">poin</span></p>
                             </div>
                         </div>

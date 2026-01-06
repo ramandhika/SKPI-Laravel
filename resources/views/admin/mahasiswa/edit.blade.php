@@ -1,80 +1,112 @@
 @extends('layouts.app')
 
 @section('title', 'Edit Mahasiswa')
-@section('page-title', 'Edit Mahasiswa')
-
-@section('sidebar')
-<a href="{{ route('admin.dashboard') }}" class="block px-6 py-3 hover:bg-indigo-700 transition">
-    <i class="fas fa-home mr-3"></i> Dashboard
-</a>
-<a href="{{ route('admin.mahasiswa.index') }}" class="block px-6 py-3 bg-indigo-900 border-l-4 border-white">
-    <i class="fas fa-users mr-3"></i> Mahasiswa
-</a>
-<a href="{{ route('admin.kategori.index') }}" class="block px-6 py-3 hover:bg-indigo-700 transition">
-    <i class="fas fa-list mr-3"></i> Kategori SKPI
-</a>
-<a href="{{ route('admin.periode.index') }}" class="block px-6 py-3 hover:bg-indigo-700 transition">
-    <i class="fas fa-calendar mr-3"></i> Periode Input
-</a>
-<a href="{{ route('admin.program-studi.index') }}" class="block px-6 py-3 hover:bg-indigo-700 transition">
-    <i class="fas fa-graduation-cap mr-3"></i> Program Studi
-</a>
-@endsection
+@section('page-title', 'Edit Data Mahasiswa')
 
 @section('content')
-<div class="max-w-2xl mx-auto">
-    <div class="bg-white rounded-lg shadow-md p-6">
-        <form action="{{ route('admin.mahasiswa.update', $mahasiswa) }}" method="POST">
-            @csrf
-            @method('PUT')
-            
-            <div class="mb-4">
-                <label class="block text-gray-700 font-semibold mb-2">Nama <span class="text-red-500">*</span></label>
-                <input type="text" name="name" value="{{ old('name', $mahasiswa->name) }}" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
-                @error('name')<p class="text-red-500 text-sm mt-1">{{ $message }}</p>@enderror
+
+    <div class="max-w-4xl mx-auto">
+
+        <div class="flex items-center justify-between mb-6">
+            <a href="{{ route('admin.mahasiswa.index') }}"
+                class="inline-flex items-center text-sm font-medium text-slate-500 hover:text-indigo-600 transition">
+                <div
+                    class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center mr-2 shadow-sm">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+                Kembali ke Daftar
+            </a>
+            <span class="px-3 py-1 bg-amber-50 text-amber-600 text-xs font-bold rounded-full border border-amber-100">
+                Mode Edit
+            </span>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+
+            <div class="bg-amber-50/50 border-b border-amber-100 px-8 py-6">
+                <h2 class="text-xl font-bold text-slate-800">Update Data: {{ $mahasiswa->name }}</h2>
+                <p class="text-sm text-slate-500 mt-1">Perbarui informasi mahasiswa dengan benar.</p>
             </div>
 
-            <div class="mb-4">
-                <label class="block text-gray-700 font-semibold mb-2">Email <span class="text-red-500">*</span></label>
-                <input type="email" name="email" value="{{ old('email', $mahasiswa->email) }}" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
-                @error('email')<p class="text-red-500 text-sm mt-1">{{ $message }}</p>@enderror
-            </div>
+            <form action="{{ route('admin.mahasiswa.update', $mahasiswa) }}" method="POST" class="p-8">
+                @csrf
+                @method('PUT')
 
-            <div class="mb-4">
-                <label class="block text-gray-700 font-semibold mb-2">NIM <span class="text-red-500">*</span></label>
-                <input type="text" name="nim" value="{{ old('nim', $mahasiswa->nim) }}" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
-                @error('nim')<p class="text-red-500 text-sm mt-1">{{ $message }}</p>@enderror
-            </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
 
-            <div class="mb-4">
-                <label class="block text-gray-700 font-semibold mb-2">Password</label>
-                <input type="password" name="password" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
-                <p class="text-sm text-gray-500 mt-1">Kosongkan jika tidak ingin mengubah password</p>
-                @error('password')<p class="text-red-500 text-sm mt-1">{{ $message }}</p>@enderror
-            </div>
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Nama Lengkap <span
+                                    class="text-rose-500">*</span></label>
+                            <input type="text" name="name" value="{{ old('name', $mahasiswa->name) }}" required
+                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none">
+                            @error('name')
+                                <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-            <div class="mb-4">
-                <label class="block text-gray-700 font-semibold mb-2">Program Studi <span class="text-red-500">*</span></label>
-                <select name="program_studi_id" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
-                    <option value="">Pilih Program Studi</option>
-                    @foreach($programStudis as $prodi)
-                        <option value="{{ $prodi->id }}" {{ old('program_studi_id', $mahasiswa->program_studi_id) == $prodi->id ? 'selected' : '' }}>
-                            {{ $prodi->nama }}
-                        </option>
-                    @endforeach
-                </select>
-                @error('program_studi_id')<p class="text-red-500 text-sm mt-1">{{ $message }}</p>@enderror
-            </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Nomor Induk (NIM) <span
+                                    class="text-rose-500">*</span></label>
+                            <input type="text" name="nim" value="{{ old('nim', $mahasiswa->nim) }}" required
+                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none">
+                            @error('nim')
+                                <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-            <div class="flex justify-between pt-4 border-t">
-                <a href="{{ route('admin.mahasiswa.index') }}" class="px-6 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400">
-                    <i class="fas fa-arrow-left mr-2"></i> Kembali
-                </a>
-                <button type="submit" class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
-                    <i class="fas fa-save mr-2"></i> Update
-                </button>
-            </div>
-        </form>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Program Studi <span
+                                    class="text-rose-500">*</span></label>
+                            <select name="program_studi_id" required
+                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none cursor-pointer">
+                                <option value="">-- Pilih Program Studi --</option>
+                                @foreach ($programStudis as $prodi)
+                                    <option value="{{ $prodi->id }}"
+                                        {{ old('program_studi_id', $mahasiswa->program_studi_id) == $prodi->id ? 'selected' : '' }}>
+                                        {{ $prodi->nama }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('program_studi_id')
+                                <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Alamat Email <span
+                                    class="text-rose-500">*</span></label>
+                            <input type="email" name="email" value="{{ old('email', $mahasiswa->email) }}" required
+                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none">
+                            @error('email')
+                                <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Password Baru</label>
+                            <input type="password" name="password"
+                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none placeholder:text-slate-400"
+                                placeholder="••••••••">
+                            <p class="text-xs text-slate-400 mt-2 flex items-center">
+                                <i class="fas fa-info-circle mr-1"></i> Biarkan kosong jika tidak ingin mengubah password.
+                            </p>
+                            @error('password')
+                                <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-end gap-4 pt-6 border-t border-slate-100">
+                    <button type="submit"
+                        class="px-8 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30">
+                        <i class="fas fa-sync-alt mr-2"></i> Update Data
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 @endsection
