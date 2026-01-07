@@ -29,7 +29,7 @@
                 </div>
                 <div>
                     <p class="text-xs text-slate-400">Mahasiswa Aktif</p>
-                    <p class="text-xl font-bold">?</p>
+                    <p class="text-xl font-bold">{{ $mahasiswaCount }}</p>
                 </div>
             </div>
         </div>

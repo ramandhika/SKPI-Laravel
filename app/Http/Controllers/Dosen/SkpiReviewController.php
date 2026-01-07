@@ -155,6 +155,10 @@ class SkpiReviewController extends Controller
             ->where('program_studi_id', $programStudi->id)
             ->pluck('id');
 
+        $mahasiswaCount = User::where('role', 'mahasiswa')
+            ->where('program_studi_id', $programStudi->id)
+            ->count();
+
         $totalSkpi = SkpiMahasiswa::whereIn('user_id', $mahasiswaIds)->count();
         $submittedSkpi = SkpiMahasiswa::whereIn('user_id', $mahasiswaIds)->where('status', 'submitted')->count();
         $acceptedSkpi = SkpiMahasiswa::whereIn('user_id', $mahasiswaIds)->where('status', 'accepted')->count();
@@ -168,6 +172,7 @@ class SkpiReviewController extends Controller
 
         return view('dosen.dashboard', compact(
             'programStudi',
+            'mahasiswaCount',
             'totalSkpi',
             'submittedSkpi',
             'acceptedSkpi',

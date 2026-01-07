@@ -80,7 +80,6 @@ class DatabaseSeeder extends Seeder
         $kategori1 = KategoriSkpi::create([
             'nama' => 'Prestasi Akademik',
             'nama_en' => 'Academic Achievement',
-            'nilai' => 100,
             'deskripsi' => 'Prestasi dalam bidang akademik',
         ]);
 
@@ -88,18 +87,19 @@ class DatabaseSeeder extends Seeder
             'kategori_skpi_id' => $kategori1->id,
             'nama' => 'Juara Kompetisi Akademik Nasional',
             'nama_en' => 'National Academic Competition Winner',
+            'nilai' => 100,
         ]);
 
         SubKategoriSkpi::create([
             'kategori_skpi_id' => $kategori1->id,
             'nama' => 'Juara Kompetisi Akademik Internasional',
             'nama_en' => 'International Academic Competition Winner',
+            'nilai' => 80,
         ]);
 
         $kategori2 = KategoriSkpi::create([
             'nama' => 'Organisasi dan Kepemimpinan',
             'nama_en' => 'Organization and Leadership',
-            'nilai' => 80,
             'deskripsi' => 'Kegiatan organisasi dan kepemimpinan',
         ]);
 
@@ -107,18 +107,20 @@ class DatabaseSeeder extends Seeder
             'kategori_skpi_id' => $kategori2->id,
             'nama' => 'Ketua Organisasi',
             'nama_en' => 'Organization Chairman',
+            'nilai' => 80,
         ]);
 
         SubKategoriSkpi::create([
             'kategori_skpi_id' => $kategori2->id,
             'nama' => 'Anggota Organisasi',
             'nama_en' => 'Organization Member',
+            'nilai' => 80,
         ]);
 
         $kategori3 = KategoriSkpi::create([
             'nama' => 'Pengabdian Masyarakat',
             'nama_en' => 'Community Service',
-            'nilai' => 60,
+            // 'nilai' => 60,
             'deskripsi' => 'Kegiatan pengabdian kepada masyarakat',
         ]);
 
@@ -126,12 +128,14 @@ class DatabaseSeeder extends Seeder
             'kategori_skpi_id' => $kategori3->id,
             'nama' => 'KKN',
             'nama_en' => 'Community Service Program',
+            'nilai' => 80,
         ]);
 
         SubKategoriSkpi::create([
             'kategori_skpi_id' => $kategori3->id,
             'nama' => 'Volunteer',
             'nama_en' => 'Volunteer Activity',
+            'nilai' => 80,
         ]);
     }
 }
