@@ -8,7 +8,7 @@
     <div class="max-w-5xl mx-auto">
 
         <a href="{{ route('dosen.skpi.index') }}"
-            class="inline-flex items-center text-sm font-medium text-slate-500 hover:text-indigo-600 mb-6 transition">
+            class="inline-flex items-center text-sm font-medium text-slate-500 hover:text-[#0F7287] mb-6 transition">
             <div
                 class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center mr-2 shadow-sm">
                 <i class="fas fa-arrow-left"></i>
@@ -46,8 +46,8 @@
                             <div>
                                 <p class="text-xs font-bold text-slate-400 uppercase mb-1">Kategori</p>
                                 <div
-                                    class="inline-flex items-center px-3 py-1 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-medium">
-                                    <i class="fas fa-tag mr-2 text-indigo-400"></i> {{ $skpi->kategori->nama }}
+                                    class="inline-flex items-center px-3 py-1 bg-[#f0f9fc] text-[#064D62] rounded-lg text-sm font-medium">
+                                    <i class="fas fa-tag mr-2 text-[#fbc21d]"></i> {{ $skpi->kategori->nama }}
                                 </div>
                             </div>
                             <div>
@@ -72,17 +72,17 @@
                         <div class="pt-4 border-t border-slate-100">
                             <p class="text-xs font-bold text-slate-400 uppercase mb-3">Bukti Pendukung</p>
                             <a href="{{ $skpi->attachment_url }}" target="_blank"
-                                class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50/30 transition group">
+                                class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 hover:border-[#fbc21d] hover:bg-[#f0f9fc]/30 transition group">
                                 <div
                                     class="w-10 h-10 bg-red-50 text-red-500 rounded-lg flex items-center justify-center text-xl group-hover:scale-110 transition">
                                     <i class="fab fa-google-drive"></i>
                                 </div>
                                 <div class="flex-1">
-                                    <p class="text-sm font-bold text-slate-700 group-hover:text-indigo-700 transition">Buka
+                                    <p class="text-sm font-bold text-slate-700 group-hover:text-[#064D62] transition">Buka
                                         Lampiran</p>
                                     <p class="text-xs text-slate-400">Google Drive Link</p>
                                 </div>
-                                <i class="fas fa-external-link-alt text-slate-400 group-hover:text-indigo-500"></i>
+                                <i class="fas fa-external-link-alt text-slate-400 group-hover:text-[#0C6C85]"></i>
                             </a>
                         </div>
                     </div>
@@ -130,10 +130,10 @@
                 <div class="sticky top-24">
 
                     @if ($skpi->status == 'submitted')
-                        <div class="bg-white rounded-2xl shadow-lg border border-indigo-100 overflow-hidden">
-                            <div class="bg-indigo-600 p-4 text-white text-center">
+                        <div class="bg-white rounded-2xl shadow-lg border border-[#d4f3ff] overflow-hidden">
+                            <div class="bg-[#0F7287] p-4 text-white text-center">
                                 <h3 class="font-bold text-lg">Action Required</h3>
-                                <p class="text-indigo-200 text-xs">Validasi submission ini</p>
+                                <p class="text-[#fbc21d] text-xs">Validasi submission ini</p>
                             </div>
 
                             <form action="{{ route('dosen.skpi.review', $skpi) }}" method="POST" class="p-6">
@@ -166,12 +166,12 @@
                                         <label class="block text-sm font-bold text-slate-700 mb-2">Catatan
                                             (Opsional)</label>
                                         <textarea name="catatan_dosen" rows="4"
-                                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none resize-none"
+                                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#0C6C85]/20 focus:border-[#0C6C85] transition outline-none resize-none"
                                             placeholder="Alasan penolakan atau apresiasi..."></textarea>
                                     </div>
 
                                     <button type="submit"
-                                        class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/30 transition transform active:scale-95">
+                                        class="w-full py-3.5 bg-[#0F7287] hover:bg-[#064D62] text-white font-bold rounded-xl shadow-lg shadow-[#0C6C85]/30 transition transform active:scale-95">
                                         Submit Review
                                     </button>
                                 </div>

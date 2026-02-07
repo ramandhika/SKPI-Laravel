@@ -9,7 +9,7 @@
 
         <div class="flex items-center justify-between mb-6">
             <a href="{{ route('admin.program-studi.index') }}"
-                class="inline-flex items-center text-sm font-medium text-slate-500 hover:text-indigo-600 transition">
+                class="inline-flex items-center text-sm font-medium text-slate-500 hover:text-[#0F7287] transition">
                 <div
                     class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center mr-2 shadow-sm">
                     <i class="fas fa-arrow-left"></i>
@@ -38,7 +38,7 @@
                                 class="text-rose-500">*</span></label>
                         <input type="text" name="kode" value="{{ old('kode', $programStudi->kode) }}" required
                             maxlength="10"
-                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none font-mono">
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#0C6C85]/20 focus:border-[#0C6C85] transition outline-none font-mono">
                         <p class="text-xs text-slate-400 mt-1">Digunakan untuk validasi NIM mahasiswa.</p>
                         @error('kode')
                             <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
@@ -49,7 +49,7 @@
                         <label class="block text-sm font-bold text-slate-700 mb-2">Nama Prodi (Indonesia) <span
                                 class="text-rose-500">*</span></label>
                         <input type="text" name="nama" value="{{ old('nama', $programStudi->nama) }}" required
-                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none">
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#0C6C85]/20 focus:border-[#0C6C85] transition outline-none">
                         @error('nama')
                             <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
@@ -58,7 +58,7 @@
                     <div>
                         <label class="block text-sm font-bold text-slate-700 mb-2">Nama Prodi (English)</label>
                         <input type="text" name="nama_en" value="{{ old('nama_en', $programStudi->nama_en) }}"
-                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none">
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#0C6C85]/20 focus:border-[#0C6C85] transition outline-none">
                         @error('nama_en')
                             <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
@@ -68,7 +68,7 @@
                         <label class="block text-sm font-bold text-slate-700 mb-2">Kaprodi / Validator</label>
                         <div class="relative">
                             <select name="dosen_id"
-                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none appearance-none cursor-pointer">
+                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#0C6C85]/20 focus:border-[#0C6C85] transition outline-none appearance-none cursor-pointer">
                                 <option value="">-- Pilih Dosen Pengelola --</option>
                                 @foreach ($dosens as $dosen)
                                     <option value="{{ $dosen->id }}"
@@ -88,7 +88,7 @@
 
                 <div class="flex items-center justify-end gap-4 pt-8 border-t border-slate-100 mt-8">
                     <button type="submit"
-                        class="px-8 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30">
+                        class="px-8 py-3 bg-[#0F7287] text-white font-bold rounded-xl hover:bg-[#064D62] transition shadow-lg shadow-[#0C6C85]/30">
                         <i class="fas fa-sync-alt mr-2"></i> Update Data
                     </button>
                 </div>

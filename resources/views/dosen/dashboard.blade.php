@@ -8,7 +8,7 @@
 @section('content')
 
     <div class="mb-8 relative overflow-hidden rounded-2xl bg-slate-900 text-white p-6 md:p-8 shadow-xl">
-        <div class="absolute top-0 right-0 -mr-10 -mt-10 w-40 h-40 bg-indigo-500/20 rounded-full blur-3xl"></div>
+        <div class="absolute top-0 right-0 -mr-10 -mt-10 w-40 h-40 bg-[#0C6C85]/20 rounded-full blur-3xl"></div>
         <div class="absolute bottom-0 left-0 -ml-10 -mb-10 w-40 h-40 bg-blue-500/20 rounded-full blur-3xl"></div>
 
         <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -19,12 +19,12 @@
                 <h3 class="text-3xl font-bold mb-1">{{ $programStudi->nama }}</h3>
                 <p class="text-slate-300 text-sm">
                     Kode Prodi: <span
-                        class="font-mono bg-slate-800 px-2 py-0.5 rounded text-indigo-300">{{ $programStudi->kode }}</span>
+                        class="font-mono bg-slate-800 px-2 py-0.5 rounded text-[#fbc21d]">{{ $programStudi->kode }}</span>
                 </p>
             </div>
 
             <div class="flex items-center gap-4 bg-slate-800/50 p-4 rounded-xl border border-slate-700">
-                <div class="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white text-xl">
+                <div class="w-12 h-12 bg-[#0F7287] rounded-full flex items-center justify-center text-white text-xl">
                     <i class="fas fa-users"></i>
                 </div>
                 <div>
@@ -43,7 +43,7 @@
                     <h3 class="text-3xl font-bold text-slate-800 mt-2">{{ $totalSkpi }}</h3>
                 </div>
                 <div
-                    class="p-3 bg-indigo-50 rounded-xl text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition">
+                    class="p-3 bg-[#f0f9fc] rounded-xl text-[#0F7287] group-hover:bg-[#0F7287] group-hover:text-white transition">
                     <i class="fas fa-file-contract text-xl"></i>
                 </div>
             </div>
@@ -96,7 +96,7 @@
                 <p class="text-sm text-slate-500">5 data terakhir yang membutuhkan perhatian.</p>
             </div>
             <a href="{{ route('dosen.skpi.index') }}"
-                class="text-sm text-indigo-600 hover:text-indigo-800 font-medium transition">
+                class="text-sm text-[#0F7287] hover:text-[#0C6C85] font-medium transition">
                 Lihat Semua <i class="fas fa-arrow-right ml-1 text-xs"></i>
             </a>
         </div>
@@ -123,7 +123,7 @@
                             </td>
                             <td class="px-6 py-4">
                                 <span
-                                    class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-50 text-indigo-700 uppercase">
+                                    class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-[#f0f9fc] text-[#064D62] uppercase">
                                     {{ $skpi->kategori->nama }}
                                 </span>
                             </td>

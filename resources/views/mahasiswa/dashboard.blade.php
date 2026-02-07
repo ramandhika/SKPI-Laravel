@@ -9,7 +9,7 @@
 
     @if ($activePeriod)
         <div
-            class="mb-8 relative overflow-hidden rounded-2xl bg-gradient-to-r from-indigo-600 to-indigo-800 shadow-lg shadow-indigo-500/20 text-white p-6 md:p-8">
+            class="mb-8 relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#0F7287] to-[#064D62] shadow-lg shadow-[#0C6C85]/20 text-white p-6 md:p-8">
             <div class="absolute top-0 right-0 -mr-10 -mt-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="absolute bottom-0 left-0 -ml-10 -mb-10 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl"></div>
 
@@ -22,7 +22,7 @@
                         </span>
                     </div>
                     <h3 class="text-2xl font-bold mb-1">{{ $activePeriod->nama }}</h3>
-                    <p class="text-indigo-100 text-sm opacity-90">
+                    <p class="text-[#fbc21d] text-sm opacity-90">
                         <i class="far fa-calendar-alt mr-1"></i>
                         {{ $activePeriod->tanggal_mulai->format('d M Y') }} —
                         {{ $activePeriod->tanggal_selesai->format('d M Y') }}
@@ -31,7 +31,7 @@
 
                 {{-- Pastikan route 'mahasiswa.skpi.create' ada, jika belum, ganti '#' --}}
                 <a href="{{ route('mahasiswa.skpi.create') }}"
-                    class="inline-flex items-center justify-center px-6 py-3 bg-white text-indigo-700 font-bold rounded-xl hover:bg-indigo-50 transition transform hover:-translate-y-0.5 shadow-md">
+                    class="inline-flex items-center justify-center px-6 py-3 bg-white text-[#064D62] font-bold rounded-xl hover:bg-[#f0f9fc] transition transform hover:-translate-y-0.5 shadow-md">
                     <i class="fas fa-plus-circle mr-2"></i> Upload SKPI Baru
                 </a>
             </div>
@@ -53,7 +53,7 @@
                     <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Upload</p>
                     <h3 class="text-3xl font-bold text-slate-800 mt-2">{{ $totalSkpi }}</h3>
                 </div>
-                <div class="p-3 bg-indigo-50 rounded-xl text-indigo-600">
+                <div class="p-3 bg-[#f0f9fc] rounded-xl text-[#0F7287]">
                     <i class="fas fa-folder-open text-xl"></i>
                 </div>
             </div>
@@ -103,7 +103,7 @@
                 <p class="text-sm text-slate-500">5 data terakhir yang kamu input.</p>
             </div>
             <a href="{{ route('mahasiswa.skpi.index') }}"
-                class="text-sm text-indigo-600 hover:text-indigo-800 font-medium transition">
+                class="text-sm text-[#0F7287] hover:text-[#064D62] font-medium transition">
                 Lihat Semua <i class="fas fa-arrow-right ml-1 text-xs"></i>
             </a>
         </div>
@@ -123,7 +123,7 @@
                         <tr class="hover:bg-slate-50/80 transition">
                             <td class="px-6 py-4">
                                 <span
-                                    class="inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700">
+                                    class="inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-bold bg-[#f0f9fc] text-[#064D62]">
                                     <i class="fas fa-tag mr-1.5 text-[10px]"></i> {{ $skpi->kategori->nama }}
                                 </span>
                             </td>
@@ -176,7 +176,7 @@
                                     <p class="text-sm font-medium">Belum ada data SKPI.</p>
                                     @if ($activePeriod)
                                         <a href="{{ route('mahasiswa.skpi.create') }}"
-                                            class="mt-2 text-sm text-indigo-600 hover:underline">
+                                            class="mt-2 text-sm text-[#0F7287] hover:underline">
                                             Mulai Upload Sekarang
                                         </a>
                                     @endif

@@ -11,13 +11,13 @@
             <div class="relative min-w-[240px]">
                 <i class="fas fa-search absolute left-4 top-3.5 text-slate-400"></i>
                 <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari NIM atau Nama..."
-                    class="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none shadow-sm">
+                    class="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#0C6C85]/20 focus:border-[#0C6C85] transition outline-none shadow-sm">
             </div>
 
             <div class="relative min-w-[200px]">
                 <i class="fas fa-graduation-cap absolute left-4 top-3.5 text-slate-400"></i>
                 <select name="program_studi"
-                    class="w-full pl-10 pr-10 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none shadow-sm appearance-none cursor-pointer">
+                    class="w-full pl-10 pr-10 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#0C6C85]/20 focus:border-[#0C6C85] transition outline-none shadow-sm appearance-none cursor-pointer">
                     <option value="">Semua Prodi</option>
                     @foreach ($programStudis as $prodi)
                         <option value="{{ $prodi->id }}" {{ request('program_studi') == $prodi->id ? 'selected' : '' }}>
@@ -46,7 +46,7 @@
             </a>
 
             <a href="{{ route('admin.mahasiswa.create') }}"
-                class="inline-flex items-center justify-center px-5 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30">
+                class="inline-flex items-center justify-center px-5 py-3 bg-[#0F7287] text-white font-bold rounded-xl hover:bg-[#064D62] transition shadow-lg shadow-[#0C6C85]/30">
                 <i class="fas fa-plus mr-2"></i> Tambah
             </a>
         </div>
@@ -69,7 +69,7 @@
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-3">
                                     <div
-                                        class="w-10 h-10 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-sm border border-indigo-100">
+                                        class="w-10 h-10 rounded-full bg-[#f0f9fc] text-[#0F7287] flex items-center justify-center font-bold text-sm border border-[#d4f3ff]">
                                         {{ substr($mahasiswa->name, 0, 2) }}
                                     </div>
                                     <div>
@@ -145,10 +145,10 @@
 
                 <div class="mb-6">
                     <div
-                        class="relative border-2 border-dashed border-slate-300 rounded-xl p-6 text-center hover:bg-slate-50 transition hover:border-indigo-400 cursor-pointer group">
+                        class="relative border-2 border-dashed border-slate-300 rounded-xl p-6 text-center hover:bg-slate-50 transition hover:border-[#fbc21d] cursor-pointer group">
                         <input type="file" name="file" accept=".csv,.xlsx,.xls" required
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                        <i class="fas fa-cloud-upload-alt text-3xl text-slate-400 mb-2 group-hover:text-indigo-500"></i>
+                        <i class="fas fa-cloud-upload-alt text-3xl text-slate-400 mb-2 group-hover:text-[#0C6C85]"></i>
                         <p class="text-sm font-medium text-slate-600">Klik untuk upload file</p>
                         <p class="text-xs text-slate-400 mt-1">.CSV, .XLSX, .XLS</p>
                     </div>

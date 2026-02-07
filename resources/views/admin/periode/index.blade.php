@@ -7,7 +7,7 @@
 
     <div class="mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div class="flex items-center gap-3">
-            <div class="p-3 bg-indigo-50 rounded-xl text-indigo-600">
+            <div class="p-3 bg-[#f0f9fc] rounded-xl text-[#0F7287]">
                 <i class="fas fa-calendar-alt text-xl"></i>
             </div>
             <div>
@@ -17,7 +17,7 @@
         </div>
 
         <a href="{{ route('admin.periode.create') }}"
-            class="inline-flex items-center justify-center px-5 py-2.5 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30">
+            class="inline-flex items-center justify-center px-5 py-2.5 bg-[#0F7287] text-white font-bold rounded-xl hover:bg-[#064D62] transition shadow-lg shadow-[#0C6C85]/30">
             <i class="fas fa-plus mr-2"></i> Tambah Periode
         </a>
     </div>

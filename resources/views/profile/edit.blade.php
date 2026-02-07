@@ -24,7 +24,7 @@
                                 <label for="name"
                                     class="block text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
                                 <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}"
-                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#0C6C85] focus:border-[#0C6C85] dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                     required autofocus>
                                 @error('name')
                                     <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
@@ -35,7 +35,7 @@
                                 <label for="email"
                                     class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
                                 <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}"
-                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#0C6C85] focus:border-[#0C6C85] dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                     required>
                                 @error('email')
                                     <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
@@ -44,7 +44,7 @@
 
                             <div class="flex items-center gap-4">
                                 <button type="submit"
-                                    class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
+                                    class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0C6C85] focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
                                     Save
                                 </button>
 
@@ -101,7 +101,7 @@
                     <label for="password"
                         class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
                     <input type="password" name="password" id="password" placeholder="Password"
-                        class="mt-1 block w-3/4 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        class="mt-1 block w-3/4 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#0C6C85] focus:border-[#0C6C85] dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         autofocus />
                     @error('password', 'userDeletion')
                         <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>

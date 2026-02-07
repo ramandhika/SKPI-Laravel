@@ -7,7 +7,7 @@
 
     <div class="mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div class="flex items-center gap-3">
-            <div class="p-3 bg-indigo-50 rounded-xl text-indigo-600">
+            <div class="p-3 bg-[#f0f9fc] rounded-xl text-[#0F7287]">
                 <i class="fas fa-graduation-cap text-xl"></i>
             </div>
             <div>
@@ -17,7 +17,7 @@
         </div>
 
         <a href="{{ route('admin.program-studi.create') }}"
-            class="inline-flex items-center justify-center px-5 py-2.5 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30">
+            class="inline-flex items-center justify-center px-5 py-2.5 bg-[#0F7287] text-white font-bold rounded-xl hover:bg-[#064D62] transition shadow-lg shadow-[#0C6C85]/30">
             <i class="fas fa-plus mr-2"></i> Tambah Prodi
         </a>
     </div>
@@ -26,7 +26,7 @@
         @forelse($programStudis as $prodi)
             <div
                 class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-md transition duration-300 group">
-                <div class="bg-gradient-to-r from-indigo-600 to-indigo-700 p-6 relative overflow-hidden">
+                <div class="bg-gradient-to-r from-[#0F7287] to-[#064D62] p-6 relative overflow-hidden">
                     <div
                         class="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none">
                     </div>
@@ -35,7 +35,7 @@
                         <div>
                             <h3 class="text-lg font-bold text-white leading-tight">{{ $prodi->nama }}</h3>
                             @if ($prodi->nama_en)
-                                <p class="text-xs text-indigo-200 mt-1 italic">{{ $prodi->nama_en }}</p>
+                                <p class="text-xs text-[#fbc21d] mt-1 italic">{{ $prodi->nama_en }}</p>
                             @endif
                         </div>
                         <span
@@ -87,7 +87,7 @@
                 <h3 class="text-lg font-bold text-slate-700">Belum ada Program Studi</h3>
                 <p class="text-slate-500 text-sm mt-1 mb-4">Silakan tambahkan data prodi baru.</p>
                 <a href="{{ route('admin.program-studi.create') }}"
-                    class="text-indigo-600 font-semibold text-sm hover:underline">Tambah Prodi Baru &rarr;</a>
+                    class="text-[#0F7287] font-semibold text-sm hover:underline">Tambah Prodi Baru &rarr;</a>
             </div>
         @endforelse
     </div>

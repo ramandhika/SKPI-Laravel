@@ -7,7 +7,7 @@
 
     <div class="mb-6 bg-white border border-slate-200 rounded-xl p-4 flex items-center justify-between shadow-sm">
         <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-600">
+            <div class="w-10 h-10 bg-[#f0f9fc] rounded-full flex items-center justify-center text-[#0F7287]">
                 <i class="fas fa-university"></i>
             </div>
             <div>
@@ -18,7 +18,7 @@
 
         @if (request('status') == 'submitted' || !request('status'))
             <button onclick="document.getElementById('bulkModal').classList.remove('hidden')"
-                class="hidden md:inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-lg hover:bg-indigo-700 transition shadow-sm hover:shadow-md">
+                class="hidden md:inline-flex items-center gap-2 px-4 py-2 bg-[#0F7287] text-white text-sm font-semibold rounded-lg hover:bg-[#064D62] transition shadow-sm hover:shadow-md">
                 <i class="fas fa-check-double"></i> Bulk Review
             </button>
         @endif
@@ -29,12 +29,12 @@
             <div class="relative flex-1">
                 <i class="fas fa-search absolute left-4 top-3.5 text-slate-400"></i>
                 <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari Nama atau NIM..."
-                    class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none">
+                    class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-[#0C6C85]/20 focus:border-[#0C6C85] transition outline-none">
             </div>
 
             <div class="w-full md:w-48">
                 <select name="status"
-                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none appearance-none cursor-pointer">
+                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-[#0C6C85]/20 focus:border-[#0C6C85] transition outline-none appearance-none cursor-pointer">
                     <option value="">Semua Status</option>
                     <option value="submitted" {{ request('status') == 'submitted' ? 'selected' : '' }}>⏳ Menunggu</option>
                     <option value="accepted" {{ request('status') == 'accepted' ? 'selected' : '' }}>✅ Disetujui</option>
@@ -60,7 +60,7 @@
                             @if (request('status') == 'submitted' || !request('status'))
                                 <th class="px-6 py-4 w-10 text-center">
                                     <input type="checkbox" id="selectAll"
-                                        class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
+                                        class="rounded border-slate-300 text-[#0F7287] focus:ring-[#0C6C85] cursor-pointer">
                                 </th>
                             @endif
                             <th class="px-6 py-4 font-semibold">Mahasiswa</th>
@@ -76,7 +76,7 @@
                                     <td class="px-6 py-4 text-center">
                                         @if ($skpi->status == 'submitted')
                                             <input type="checkbox" name="skpi_ids[]" value="{{ $skpi->id }}"
-                                                class="skpi-checkbox rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
+                                                class="skpi-checkbox rounded border-slate-300 text-[#0F7287] focus:ring-[#0C6C85] cursor-pointer">
                                         @endif
                                     </td>
                                 @endif
@@ -94,7 +94,7 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     <span
-                                        class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-50 text-indigo-600 mb-1">
+                                        class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-[#f0f9fc] text-[#0F7287] mb-1">
                                         {{ $skpi->kategori->nama }}
                                     </span>
                                     <p class="text-sm font-medium text-slate-800">{{ $skpi->nama_kegiatan }}</p>
@@ -118,7 +118,7 @@
                                 </td>
                                 <td class="px-6 py-4 text-center">
                                     <a href="{{ route('dosen.skpi.show', $skpi) }}"
-                                        class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white border border-slate-200 text-slate-500 hover:text-indigo-600 hover:border-indigo-300 transition shadow-sm">
+                                        class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white border border-slate-200 text-slate-500 hover:text-[#0F7287] hover:border-[#fbc21d] transition shadow-sm">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                 </td>
@@ -158,7 +158,7 @@
             </div>
 
             <div
-                class="bg-indigo-50 border border-indigo-100 rounded-lg p-3 mb-4 text-indigo-700 text-sm flex items-center gap-2">
+                class="bg-[#f0f9fc] border border-[#d4f3ff] rounded-lg p-3 mb-4 text-[#064D62] text-sm flex items-center gap-2">
                 <i class="fas fa-info-circle"></i>
                 <span id="selectedCountText">0 SKPI terpilih</span>
             </div>
@@ -189,7 +189,7 @@
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-1">Catatan Tambahan</label>
                     <textarea name="catatan_dosen" form="bulkForm" rows="3"
-                        class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none resize-none"
+                        class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-[#0C6C85]/20 focus:border-[#0C6C85] transition outline-none resize-none"
                         placeholder="Opsional..."></textarea>
                 </div>
             </div>
@@ -200,7 +200,7 @@
                     Batal
                 </button>
                 <button type="submit" form="bulkForm"
-                    class="flex-1 px-4 py-2.5 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30">
+                    class="flex-1 px-4 py-2.5 bg-[#0F7287] text-white font-semibold rounded-xl hover:bg-[#064D62] transition shadow-lg shadow-[#0C6C85]/30">
                     Konfirmasi
                 </button>
             </div>

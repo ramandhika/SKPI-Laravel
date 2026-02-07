@@ -9,7 +9,7 @@
 
         <div class="flex items-center justify-between mb-6">
             <a href="{{ route('mahasiswa.skpi.index') }}"
-                class="inline-flex items-center text-sm font-medium text-slate-500 hover:text-indigo-600 transition">
+                class="inline-flex items-center text-sm font-medium text-slate-500 hover:text-[#0F7287] transition">
                 <div
                     class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center mr-2 shadow-sm">
                     <i class="fas fa-arrow-left"></i>
@@ -40,7 +40,7 @@
                                 Sub Kategori SKPI <span class="text-rose-500">*</span>
                             </label>
                             <select name="sub_kategori_skpi_id" id="sub_kategori_skpi_id"
-                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none cursor-pointer"
+                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#0C6C85]/20 focus:border-[#0C6C85] transition outline-none cursor-pointer"
                                 required>
                                 <option value="">-- Pilih Sub Kategori --</option>
                                 @foreach ($kategoris as $kategori)
@@ -61,9 +61,9 @@
 
                         <div id="nilaiDisplay" class="transition-all duration-300">
                             <div
-                                class="flex items-center gap-3 p-4 bg-indigo-50 border border-indigo-100 rounded-xl text-indigo-700">
+                                class="flex items-center gap-3 p-4 bg-[#f0f9fc] border border-[#d4f3ff] rounded-xl text-[#064D62]">
                                 <div
-                                    class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-indigo-600 shadow-sm font-bold text-lg">
+                                    class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-[#0F7287] shadow-sm font-bold text-lg">
                                     <span id="nilaiText">{{ $skpi->subKategori->nilai ?? 0 }}</span>
                                 </div>
                                 <div>
@@ -84,7 +84,7 @@
                             Nama Kegiatan (Indonesia) <span class="text-rose-500">*</span>
                         </label>
                         <input type="text" name="nama_kegiatan" value="{{ old('nama_kegiatan', $skpi->nama_kegiatan) }}"
-                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none"
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#0C6C85]/20 focus:border-[#0C6C85] transition outline-none"
                             required>
                         @error('nama_kegiatan')
                             <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
@@ -97,7 +97,7 @@
                         </label>
                         <input type="text" name="nama_kegiatan_en"
                             value="{{ old('nama_kegiatan_en', $skpi->nama_kegiatan_en) }}"
-                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none">
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#0C6C85]/20 focus:border-[#0C6C85] transition outline-none">
                         @error('nama_kegiatan_en')
                             <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
@@ -116,11 +116,11 @@
                     <i class="fab fa-google-drive absolute left-4 top-3.5 text-slate-400 text-lg"></i>
                     <input type="url" name="attachment_url" id="attachment_url"
                         value="{{ old('attachment_url', $skpi->attachment_url) }}"
-                        class="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none"
+                        class="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#0C6C85]/20 focus:border-[#0C6C85] transition outline-none"
                         required>
                 </div>
                 <button type="button" id="checkUrlBtn"
-                    class="px-6 py-3 bg-white border border-slate-200 text-slate-600 font-semibold rounded-xl hover:border-indigo-300 hover:text-indigo-600 transition shadow-sm whitespace-nowrap">
+                    class="px-6 py-3 bg-white border border-slate-200 text-slate-600 font-semibold rounded-xl hover:border-[#0C6C85] hover:text-[#0F7287] transition shadow-sm whitespace-nowrap">
                     <i class="fas fa-link mr-2"></i> Cek Akses
                 </button>
             </div>
@@ -137,7 +137,7 @@
                 <i class="fas fa-save mr-2"></i> Update Draft
             </button>
             <button type="submit" name="status" value="submitted"
-                class="w-full md:w-auto px-8 py-3.5 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30">
+                class="w-full md:w-auto px-8 py-3.5 bg-[#0F7287] text-white font-bold rounded-xl hover:bg-[#064D62] transition shadow-lg shadow-[#0C6C85]/30">
                 <i class="fas fa-paper-plane mr-2"></i> Submit Ulang
             </button>
         </div>

@@ -7,21 +7,21 @@
 
     <div class="mb-6 grid grid-cols-1 md:grid-cols-3 gap-6">
         <div
-            class="bg-gradient-to-br from-indigo-600 to-indigo-800 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden col-span-1 md:col-span-1">
+            class="bg-gradient-to-br from-[#0F7287] to-[#064D62] rounded-2xl p-6 text-white shadow-lg relative overflow-hidden col-span-1 md:col-span-1">
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-white/10 rounded-full blur-xl pointer-events-none">
             </div>
 
             <div class="relative z-10 flex items-center justify-between">
                 <div>
-                    <p class="text-indigo-200 text-xs font-bold uppercase tracking-wider mb-1">Total Poin Disetujui</p>
+                    <p class="text-[#fbc21d] text-xs font-bold uppercase tracking-wider mb-1">Total Poin Disetujui</p>
                     <h2 class="text-4xl font-bold">{{ $totalPoin }} <span
-                            class="text-lg font-normal text-indigo-300">Poin</span></h2>
+                            class="text-lg font-normal text-[#d4f3ff]">Poin</span></h2>
                 </div>
                 <div class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
                     <i class="fas fa-star text-yellow-300 text-xl"></i>
                 </div>
             </div>
-            <div class="mt-4 text-xs text-indigo-200 border-t border-indigo-500/30 pt-3">
+            <div class="mt-4 text-xs text-[#fbc21d] border-t border-[#0C6C85]/30 pt-3">
                 Terakumulasi dari seluruh kegiatan berstatus <b>Accepted</b>.
             </div>
         </div>
@@ -52,7 +52,7 @@
             <div class="relative w-full md:w-64">
                 <i class="fas fa-filter absolute left-3 top-3.5 text-slate-400 text-sm"></i>
                 <select name="status"
-                    class="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none appearance-none cursor-pointer text-sm font-medium">
+                    class="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-[#0C6C85]/20 focus:border-[#0C6C85] transition outline-none appearance-none cursor-pointer text-sm font-medium">
                     <option value="">Semua Status</option>
                     <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>📝 Draft</option>
                     <option value="submitted" {{ request('status') == 'submitted' ? 'selected' : '' }}>⏳ Menunggu Validasi
@@ -68,7 +68,7 @@
         </form>
 
         <a href="{{ route('mahasiswa.skpi.create') }}"
-            class="w-full md:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-indigo-600 text-white font-bold rounded-lg hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30">
+            class="w-full md:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#0F7287] text-white font-bold rounded-lg hover:bg-[#064D62] transition shadow-lg shadow-[#0C6C85]/30">
             <i class="fas fa-plus"></i> Upload SKPI
         </a>
     </div>
@@ -94,7 +94,7 @@
                                 @endif
                                 <div class="flex items-center gap-2 mt-2">
                                     <a href="{{ $skpi->attachment_url }}" target="_blank"
-                                        class="inline-flex items-center gap-1 px-2 py-1 rounded bg-slate-100 text-slate-600 text-xs hover:bg-indigo-50 hover:text-indigo-600 transition">
+                                        class="inline-flex items-center gap-1 px-2 py-1 rounded bg-slate-100 text-slate-600 text-xs hover:bg-[#f0f9fc] hover:text-[#0F7287] transition">
                                         <i class="fab fa-google-drive"></i> Bukti Lampiran
                                     </a>
                                 </div>
@@ -102,7 +102,7 @@
 
                             <td class="px-6 py-4 align-top">
                                 <span
-                                    class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-50 text-indigo-700 mb-1">
+                                    class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-[#f0f9fc] text-[#064D62] mb-1">
                                     {{ $skpi->kategori->nama }}
                                 </span>
                                 <p class="text-xs text-slate-500">{{ $skpi->subKategori->nama }}</p>
@@ -191,7 +191,7 @@
                                     </div>
                                     <p class="text-sm font-medium">Belum ada data SKPI.</p>
                                     <a href="{{ route('mahasiswa.skpi.create') }}"
-                                        class="mt-2 text-sm text-indigo-600 hover:underline">Mulai Upload</a>
+                                        class="mt-2 text-sm text-[#0F7287] hover:underline">Mulai Upload</a>
                                 </div>
                             </td>
                         </tr>

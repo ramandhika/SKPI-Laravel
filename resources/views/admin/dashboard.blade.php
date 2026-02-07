@@ -11,7 +11,7 @@
                     <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Mahasiswa</p>
                     <h3 class="text-3xl font-bold text-slate-800 mt-2">{{ $totalMahasiswa }}</h3>
                 </div>
-                <div class="p-3 bg-indigo-50 rounded-xl text-indigo-600">
+                <div class="p-3 bg-[#f0f9fc] rounded-xl text-[#0F7287]">
                     <i class="fas fa-users text-xl"></i>
                 </div>
             </div>
@@ -75,7 +75,7 @@
         <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
             <div class="flex items-center justify-between mb-6">
                 <h3 class="text-lg font-bold text-slate-800">Status Overview</h3>
-                <button class="text-slate-400 hover:text-indigo-600 transition"><i class="fas fa-ellipsis-h"></i></button>
+                <button class="text-slate-400 hover:text-[#0F7287] transition"><i class="fas fa-ellipsis-h"></i></button>
             </div>
 
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -101,7 +101,7 @@
         <div
             class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center relative overflow-hidden">
             <div
-                class="absolute -right-6 -top-6 w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full opacity-10">
+                class="absolute -right-6 -top-6 w-24 h-24 bg-gradient-to-br from-[#0C6C85] to-[#0F7287] rounded-full opacity-10">
             </div>
 
             <h3 class="text-lg font-bold text-slate-800 mb-4 z-10">Periode Aktif</h3>
@@ -113,12 +113,12 @@
                         <span class="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>
                         Open for Submission
                     </div>
-                    <h4 class="text-xl font-bold text-indigo-700 mb-1">{{ $activePeriod->nama }}</h4>
+                    <h4 class="text-xl font-bold text-[#064D62] mb-1">{{ $activePeriod->nama }}</h4>
                     <p class="text-sm text-slate-500 mb-4">Pastikan mahasiswa menginput data sebelum tenggat waktu.</p>
 
                     <div
                         class="flex items-center gap-3 text-sm text-slate-600 bg-slate-50 p-3 rounded-lg border border-slate-100">
-                        <i class="far fa-calendar-alt text-indigo-500"></i>
+                        <i class="far fa-calendar-alt text-[#0C6C85]"></i>
                         <span class="font-medium">{{ $activePeriod->tanggal_mulai->format('d M') }}</span>
                         <i class="fas fa-arrow-right text-slate-300 text-xs"></i>
                         <span class="font-medium">{{ $activePeriod->tanggal_selesai->format('d M Y') }}</span>
@@ -132,7 +132,7 @@
                     </div>
                     <p class="text-slate-500 font-medium">Tidak ada periode aktif</p>
                     <a href="{{ route('admin.periode.index') }}"
-                        class="text-sm text-indigo-600 hover:underline mt-2 inline-block">Buat Periode Baru</a>
+                        class="text-sm text-[#0F7287] hover:underline mt-2 inline-block">Buat Periode Baru</a>
                 </div>
             @endif
         </div>
@@ -183,7 +183,7 @@
                             </td>
                             <td class="px-6 py-4">
                                 <span
-                                    class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-50 text-indigo-600 mb-1">
+                                    class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-[#f0f9fc] text-[#0F7287] mb-1">
                                     {{ $skpi->kategori->nama }}
                                 </span>
                                 <p class="text-sm font-medium text-slate-700 truncate max-w-xs"
@@ -226,7 +226,7 @@
         </div>
 
         <div class="p-4 border-t border-slate-100 bg-slate-50/50 text-center">
-            <a href="#" class="text-sm text-indigo-600 hover:text-indigo-800 font-medium transition">
+            <a href="#" class="text-sm text-[#0F7287] hover:text-[#064D62] font-medium transition">
                 Lihat Semua Data <i class="fas fa-arrow-right ml-1 text-xs"></i>
             </a>
         </div>

@@ -7,7 +7,7 @@
 
     <div class="mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div class="flex items-center gap-3">
-            <div class="p-3 bg-indigo-50 rounded-xl text-indigo-600">
+            <div class="p-3 bg-[#f0f9fc] rounded-xl text-[#0F7287]">
                 <i class="fas fa-layer-group text-xl"></i>
             </div>
             <div>
@@ -17,7 +17,7 @@
         </div>
 
         <a href="{{ route('admin.kategori.create') }}"
-            class="inline-flex items-center justify-center px-5 py-2.5 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30">
+            class="inline-flex items-center justify-center px-5 py-2.5 bg-[#0F7287] text-white font-bold rounded-xl hover:bg-[#064D62] transition shadow-lg shadow-[#0C6C85]/30">
             <i class="fas fa-plus mr-2"></i> Tambah Kategori
         </a>
     </div>
@@ -34,7 +34,8 @@
                             <i class="fas fa-tag"></i>
                         </div>
                         <div
-                            class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-600 text-xs font-bold">
+                            class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#f0f9fc] text-[#0F7287] text-xs font-bold">
+                            >
                             <i class="fas fa-list-ul"></i>
                             <span>{{ $kategori->sub_kategori_count }} Sub</span>
                         </div>
@@ -53,7 +54,7 @@
 
                 <div class="p-4 bg-slate-50 border-t border-slate-100 flex gap-2">
                     <a href="{{ route('admin.kategori.sub-kategori', $kategori) }}"
-                        class="flex-1 inline-flex items-center justify-center px-3 py-2 bg-white border border-slate-200 text-slate-600 text-sm font-semibold rounded-lg hover:border-indigo-300 hover:text-indigo-600 transition shadow-sm">
+                        class="flex-1 inline-flex items-center justify-center px-3 py-2 bg-white border border-slate-200 text-slate-600 text-sm font-semibold rounded-lg hover:border-[#fbc21d] hover:text-[#0F7287] transition shadow-sm">>
                         <i class="fas fa-folder-open mr-2"></i> Detail
                     </a>
 
@@ -82,7 +83,7 @@
                 <h3 class="text-lg font-bold text-slate-700">Data Kosong</h3>
                 <p class="text-slate-500 text-sm mt-1 mb-4">Belum ada kategori SKPI yang dibuat.</p>
                 <a href="{{ route('admin.kategori.create') }}"
-                    class="text-indigo-600 font-semibold text-sm hover:underline">Buat Kategori Baru &rarr;</a>
+                    class="text-[#0F7287] font-semibold text-sm hover:underline">Buat Kategori Baru &rarr;</a>
             </div>
         @endforelse
     </div>

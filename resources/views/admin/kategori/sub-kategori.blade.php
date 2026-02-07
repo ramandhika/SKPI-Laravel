@@ -7,7 +7,7 @@
 
     <div class="mb-8">
         <a href="{{ route('admin.kategori.index') }}"
-            class="inline-flex items-center text-sm font-medium text-slate-500 hover:text-indigo-600 mb-6 transition">
+            class="inline-flex items-center text-sm font-medium text-slate-500 hover:text-[#0F7287] mb-6 transition">
             <div
                 class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center mr-2 shadow-sm">
                 <i class="fas fa-arrow-left"></i>
@@ -16,22 +16,22 @@
         </a>
 
         <div
-            class="bg-indigo-600 rounded-2xl p-6 md:p-8 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row justify-between items-end md:items-center gap-4">
+            class="bg-[#0F7287] rounded-2xl p-6 md:p-8 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row justify-between items-end md:items-center gap-4">
             <div
                 class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none">
             </div>
 
             <div class="relative z-10">
-                <div class="flex items-center gap-2 mb-2 text-indigo-200 text-xs font-bold uppercase tracking-wider">
+                <div class="flex items-center gap-2 mb-2 text-[#fbc21d] text-xs font-bold uppercase tracking-wider">
                     <i class="fas fa-layer-group"></i> Parent Category
                 </div>
                 <h2 class="text-3xl font-bold mb-1">{{ $kategori->nama }}</h2>
-                <p class="text-indigo-100 text-sm max-w-2xl">
+                <p class="text-[#d4f3ff] text-sm max-w-2xl">
                     {{ $kategori->deskripsi ?? 'Kelola sub-kategori dan poin penilaian untuk kategori ini.' }}</p>
             </div>
 
             <button onclick="document.getElementById('createModal').classList.remove('hidden')"
-                class="relative z-10 inline-flex items-center px-5 py-3 bg-white text-indigo-600 font-bold rounded-xl hover:bg-indigo-50 transition shadow-md whitespace-nowrap">
+                class="relative z-10 inline-flex items-center px-5 py-3 bg-white text-[#0F7287] font-bold rounded-xl hover:bg-[#f0f9fc] transition shadow-md whitespace-nowrap">
                 <i class="fas fa-plus mr-2"></i> Tambah Sub
             </button>
         </div>
@@ -124,23 +124,23 @@
                         <label class="block text-sm font-bold text-slate-700 mb-2">Nama Sub (Indonesia) <span
                                 class="text-rose-500">*</span></label>
                         <input type="text" name="nama" required
-                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none">
+                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#0C6C85]/20 focus:border-[#0C6C85] transition outline-none">
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-slate-700 mb-2">Nama Sub (English)</label>
                         <input type="text" name="nama_en"
-                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none">
+                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#0C6C85]/20 focus:border-[#0C6C85] transition outline-none">
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-slate-700 mb-2">Bobot Nilai <span
                                 class="text-rose-500">*</span></label>
                         <input type="number" name="nilai" min="0" value="0" required
-                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none">
+                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#0C6C85]/20 focus:border-[#0C6C85] transition outline-none">
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-slate-700 mb-2">Deskripsi</label>
                         <textarea name="deskripsi" rows="3"
-                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none resize-none"></textarea>
+                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#0C6C85]/20 focus:border-[#0C6C85] transition outline-none resize-none"></textarea>
                     </div>
                 </div>
 
@@ -150,7 +150,7 @@
                         Batal
                     </button>
                     <button type="submit"
-                        class="flex-1 px-4 py-2.5 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30">
+                        class="flex-1 px-4 py-2.5 bg-[#0F7287] text-white font-semibold rounded-xl hover:bg-[#064D62] transition shadow-lg shadow-[#0C6C85]/30">
                         Simpan
                     </button>
                 </div>
@@ -177,23 +177,23 @@
                         <label class="block text-sm font-bold text-slate-700 mb-2">Nama Sub (Indonesia) <span
                                 class="text-rose-500">*</span></label>
                         <input type="text" id="edit_nama" name="nama" required
-                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none">
+                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#0C6C85]/20 focus:border-[#0C6C85] transition outline-none">
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-slate-700 mb-2">Nama Sub (English)</label>
                         <input type="text" id="edit_nama_en" name="nama_en"
-                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none">
+                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#0C6C85]/20 focus:border-[#0C6C85] transition outline-none">
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-slate-700 mb-2">Bobot Nilai <span
                                 class="text-rose-500">*</span></label>
                         <input type="number" id="edit_nilai" name="nilai" min="0" value="0" required
-                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none">
+                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#0C6C85]/20 focus:border-[#0C6C85] transition outline-none">
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-slate-700 mb-2">Deskripsi</label>
                         <textarea id="edit_deskripsi" name="deskripsi" rows="3"
-                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition outline-none resize-none"></textarea>
+                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#0C6C85]/20 focus:border-[#0C6C85] transition outline-none resize-none"></textarea>
                     </div>
                 </div>
 

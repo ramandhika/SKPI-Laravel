@@ -55,7 +55,7 @@
 
         <div
             class="fixed top-0 left-0 w-full bg-white border-b border-slate-200 p-4 flex justify-between items-center z-30 md:hidden">
-            <span class="font-bold text-lg text-indigo-600">SKPI App</span>
+            <span class="font-bold text-lg text-[#0F7287]">SKPI App</span>
             <button @click="sidebarOpen = !sidebarOpen" class="text-slate-600 focus:outline-none">
                 <i class="fas fa-bars text-xl"></i>
             </button>
@@ -69,7 +69,7 @@
 
             <div class="flex items-center justify-center h-20 border-b border-slate-700/50 bg-slate-900 shrink-0">
                 <div class="text-center">
-                    <h1 class="text-2xl font-bold tracking-tight text-white">SKPI<span class="text-indigo-400">
+                    <h1 class="text-2xl font-bold tracking-tight text-white">SKPI<span class="text-[#fbc21d]">
                             Sistem</span></h1>
                     <div class="text-xs text-slate-400 font-medium px-2 py-0.5 rounded bg-slate-800 mt-1 inline-block">
                         {{ ucfirst(auth()->user()->role) }} Workspace
@@ -92,7 +92,7 @@
             <div class="p-4 border-t border-slate-700/50 bg-slate-800/50 shrink-0">
                 <div class="flex items-center gap-3 mb-4">
                     <div
-                        class="w-10 h-10 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold shadow-lg shrink-0">
+                        class="w-10 h-10 rounded-full bg-gradient-to-tr from-[#0C6C85] to-[#0F7287] flex items-center justify-center text-white font-bold shadow-lg shrink-0">
                         {{ substr(auth()->user()->name, 0, 1) }}
                     </div>
                     <div class="overflow-hidden">
@@ -122,12 +122,12 @@
                     <p class="text-sm text-slate-500 mt-0.5">Manage your academic achievements efficiently.</p>
                 </div>
 
-                <div class="flex items-center gap-4">
+                {{-- <div class="flex items-center gap-4">
                     <button
-                        class="w-8 h-8 rounded-full bg-slate-100 text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 flex items-center justify-center transition">
+                        class="w-8 h-8 rounded-full bg-slate-100 text-slate-500 hover:bg-[#f0f9fc] hover:text-[#0F7287] flex items-center justify-center transition">
                         <i class="far fa-bell"></i>
                     </button>
-                </div>
+                </div> --}}
             </header>
 
             <div class="flex-1 overflow-y-auto p-4 md:p-8">

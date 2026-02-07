@@ -2,7 +2,7 @@
 
 <a href="{{ route('admin.dashboard') }}"
     class="flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 
-   {{ request()->routeIs('admin.dashboard') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30' : 'text-slate-400 hover:bg-slate-800 hover:text-white' }}">
+   {{ request()->routeIs('admin.dashboard') ? 'bg-[#0F7287] text-white shadow-lg shadow-[#0C6C85]/30' : 'text-slate-400 hover:bg-slate-800 hover:text-white' }}">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
         class="w-5 h-5">
         <path stroke-linecap="round" stroke-linejoin="round"
@@ -13,7 +13,7 @@
 
 <a href="{{ route('admin.mahasiswa.index') }}"
     class="flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 
-   {{ request()->routeIs('admin.mahasiswa.*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30' : 'text-slate-400 hover:bg-slate-800 hover:text-white' }}">
+   {{ request()->routeIs('admin.mahasiswa.*') ? 'bg-[#0F7287] text-white shadow-lg shadow-[#0C6C85]/30' : 'text-slate-400 hover:bg-slate-800 hover:text-white' }}">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
         class="w-5 h-5">
         <path stroke-linecap="round" stroke-linejoin="round"
@@ -24,7 +24,7 @@
 
 <a href="{{ route('admin.program-studi.index') }}"
     class="flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 
-   {{ request()->routeIs('admin.program-studi.*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30' : 'text-slate-400 hover:bg-slate-800 hover:text-white' }}">
+   {{ request()->routeIs('admin.program-studi.*') ? 'bg-[#0F7287] text-white shadow-lg shadow-[#0C6C85]/30' : 'text-slate-400 hover:bg-slate-800 hover:text-white' }}">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
         class="w-5 h-5">
         <path stroke-linecap="round" stroke-linejoin="round"
@@ -37,7 +37,7 @@
 
 <a href="{{ route('admin.kategori.index') }}"
     class="flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 
-   {{ request()->routeIs('admin.kategori.*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30' : 'text-slate-400 hover:bg-slate-800 hover:text-white' }}">
+   {{ request()->routeIs('admin.kategori.*') ? 'bg-[#0F7287] text-white shadow-lg shadow-[#0C6C85]/30' : 'text-slate-400 hover:bg-slate-800 hover:text-white' }}">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
         class="w-5 h-5">
         <path stroke-linecap="round" stroke-linejoin="round"
@@ -49,7 +49,7 @@
 
 <a href="{{ route('admin.periode.index') }}"
     class="flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 
-   {{ request()->routeIs('admin.periode.*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/30' : 'text-slate-400 hover:bg-slate-800 hover:text-white' }}">
+   {{ request()->routeIs('admin.periode.*') ? 'bg-[#0F7287] text-white shadow-lg shadow-[#0C6C85]/30' : 'text-slate-400 hover:bg-slate-800 hover:text-white' }}">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
         class="w-5 h-5">
         <path stroke-linecap="round" stroke-linejoin="round"
